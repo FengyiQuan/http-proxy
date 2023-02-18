@@ -7,19 +7,21 @@
 
 #include "proxy.hpp"
 
-#include<iostream>
-#include<string>
-#include<stdlib.h>
+#include <iostream>
+#include <string>
+#include <stdlib.h>
 
-#define PORT 12345
+#define PORT "12345"
 
-int main(int argc,char* argv[]){
-    Proxy* proxy;
-    port  = atoi(PORT)
+int main(int argc, char *argv[])
+{
+    Proxy *proxy;
+    int  port = atoi(PORT);
     proxy = new Proxy(port);
-    
-    if(proxy->run()){
-            cerr<<"Error starting HTTPProxy"<<endl;
-        }
+
+    if (proxy->run())
+    {
+        std::cerr << "Error starting HTTPProxy" << std::endl;
+    }
     return 0;
 }

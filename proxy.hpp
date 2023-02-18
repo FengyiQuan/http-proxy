@@ -9,29 +9,28 @@
 #define proxy_hpp
 
 #include <stdio.h>
-
-
-class Proxy {
+#include <sys/socket.h>
+#include <netinet/in.h>
+class Proxy
+{
 public:
     Proxy();
-    Proxy(size_t port):portNum(port){}
-    ~HTTPProxy();
-    int run(void );
+    Proxy(size_t port);
+    ~Proxy();
+    int run(void);
+
 private:
     size_t portNum;
-    
-    int initSocketClient(void );
-    int initSocketServer(void );
-    
-    int handleRequest(void );
-    
-    int recvRequestClient(void );
-    int sendRequestServer(void );
+
+    int initSocketClient(void);
+    // int initSocketServer(void);
+
+    int handleRequest(void);
+
+    // int recvRequestClient(void);
+    // int sendRequestServer(void);
     int client_fd;
     struct sockaddr_in proxyAddr, clientAddr;
 };
 
-
-
 #endif /* proxy_hpp */
-
