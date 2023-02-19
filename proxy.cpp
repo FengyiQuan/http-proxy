@@ -12,7 +12,7 @@
 #include <cstring>
 #include <stdexcept>
 #include <sstream>
-
+#include <pthread.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -28,6 +28,7 @@ Proxy::Proxy(size_t port) : portNum(port)
 {
 }
 
+// TODO: close socket
 Proxy::~Proxy()
 {
 }
@@ -52,14 +53,15 @@ int Proxy::run()
             return -1;
         }
 
-        if (fork() == 0)
+        // pthread_t thread;
+        // if (fork() == 0)
+        // {
+        if (handleRequest())
         {
-            if (handleRequest())
-            {
-                return -1;
-            }
-            return 0;
+            return -1;
         }
+        return 0;
+        // }
         close(new_socket);
     }
 
@@ -102,6 +104,35 @@ int Proxy::handleRequest()
     //    httpClientResponse= new HTTPResponse();
     //    httpServerRequest = new HTTPRequest();
     //    httpServerResponse = new HTTPResponse();
-    std::cout << "hello world" << std::endl;
+    // std::cout << "hello world" << std::endl;
+
+    int buf_sz = 65536;
+    char *buf = new char[buf_sz];
+    memset(buf, '\0', buf_sz);
+    int recvLength = recv(client_fd, buf, buf_sz, 0);
+    if (recvLength < 0)
+    {
+        // LOG
+        return -1;
+    }
     return 0;
 }
+
+int Proxy::handleConnect(void)
+{
+}
+int handleGet(void);
+int handlePost(void);
+
+// int Proxy::initSocketServer(void);
+
+// int Proxy::recvRequestClient(void);
+// int Proxy::parseRequestClient(void);
+// int Proxy::processRequestClient(void);
+// int Proxy::prepareRequestServer(void);
+// int Proxy::sendRequestServer(void);
+// int Proxy::recvResponseServer(void);
+// int Proxy::parseResponseServer(void);
+// int Proxy::processResponseServer(void);
+// int Proxy::prepareResponseClient(void);
+// int Proxy::sendResponseClient(void);
