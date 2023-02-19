@@ -1,7 +1,9 @@
-all: main
+CFLAGS = -Wall -Werror -std=gnu++98 -pedantic -ggdb3
 
-main: main.cpp proxy.cpp proxy.hpp
-	g++ -ggdb3 main.cpp proxy.cpp
+all: proxyyy
+
+proxyyy: main.cpp proxy.cpp proxy.hpp
+	g++ $(CFLAGS) -o proxyyy main.cpp proxy.cpp
 
 clean:
-	rm -rf *.o main
+	rm -rf *.o proxyyy
