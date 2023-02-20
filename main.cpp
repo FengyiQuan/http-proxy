@@ -23,5 +23,7 @@ int main(int argc, char *argv[])
     {
         std::cerr << "Error starting HTTPProxy" << std::endl;
     }
+
+    delete proxy;
     return 0;
 }

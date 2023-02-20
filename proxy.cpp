@@ -126,7 +126,7 @@ int Proxy::handleRequest()
     {
         std::cout << it->first << ":" << it->second <<  "\n";
     }
-
+    delete httpClientRequest;
     return 0;
 }
 
