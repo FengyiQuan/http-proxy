@@ -99,13 +99,13 @@ int Proxy::handleRequest()
     //    httpServerResponse = new HTTPResponse();
     // std::cout << "hello world" << std::endl;
 
-    int buf_sz = 65536;
-    char *buf = new char[buf_sz];
-    memset(buf, '\0', buf_sz);
-    // char req_msg[65536] = {0};
-    // int len = recv(client_fd, req_msg, sizeof(req_msg), 0); // fisrt request from client
+    // int buf_sz = 65536;
+    // char *buf = new char[buf_sz];
+    // memset(buf, '\0', buf_sz);
+    char req_msg[65536] = {0};
+    int recvLength = recv(client_fd, req_msg, sizeof(req_msg), 0); // fisrt request from client
     // std::cout << "len: " << len << std::endl;
-    int recvLength = recv(client_fd_connection, buf, buf_sz, 0); // fisrt request from client
+    // int recvLength = recv(client_fd_connection, buf, buf_sz, 0); // fisrt request from client
     // std::cout << "recvLength: " << recvLength << std::endl;
     if (recvLength < 0)
     {

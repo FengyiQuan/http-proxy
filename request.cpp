@@ -33,7 +33,7 @@ void Request::parseHeaders(std::string request)
         std::string key = line.substr(0, colon);
 
         std::string value = line.substr(colon + 1);
-        value.erase(0, value.find_first_not_of("\t\n\v\f\r ")); // left trim
+        value.erase(0, value.find_first_not_of("\t\n\v\f\r ")); // left trim    
         value.erase(value.find_last_not_of("\t\n\v\f\r ") + 1); // right trim
         if (!(key == "" && value == ""))
         {
