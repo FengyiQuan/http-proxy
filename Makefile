@@ -9,3 +9,5 @@ proxyyy: main.cpp main.hpp
 clean:
 	rm -rf *.o proxyyy
 
+# nc localhost 12345
+# GET /wx/in/kanpur/wx.php HTTP/1.0 \r\n Host: www.rssweather.com \r\n \r\n

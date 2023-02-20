@@ -16,7 +16,7 @@
 int main(int argc, char *argv[])
 {
     Proxy *proxy;
-    int  port = atoi(PORT);
+    int port = atoi(PORT);
     proxy = new Proxy(port);
 
     if (proxy->run())

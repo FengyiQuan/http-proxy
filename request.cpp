@@ -1,5 +1,5 @@
 #include "request.hpp"
-
+#include <iostream>
 Request::Request(std::string request)
 {
     parseStartLine(request);
@@ -21,6 +21,7 @@ void Request::parseHeaders(std::string request)
     size_t pos = request.find("\r\n");
     std::string header = request.substr(pos + 2);
     std::string line;
+    std::cout << "parse header start" << std::endl;
     while ((pos = header.find("\r\n")) != std::string::npos)
     {
         line = header.substr(0, pos);
@@ -31,8 +32,14 @@ void Request::parseHeaders(std::string request)
         value.erase(0, value.find_first_not_of("\t\n\v\f\r ")); // left trim
         value.erase(value.find_last_not_of("\t\n\v\f\r ") + 1); // right trim
         headers[key] = value;                                   // insert key/value pair to struct
+        std::cout << key << ": " << value << std::endl;
         header = header.substr(pos + 2);
     }
+    // std::map<std::string, std::string>::iterator it;
+    // for (it = getHeaders().begin(); it != getHeaders().end(); it++)
+    // {
+    //     std::cout << it->first << ": " << it->second << std::endl;
+    // }
 }
 
 std::string Request::getMethod()

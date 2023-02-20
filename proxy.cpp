@@ -19,6 +19,9 @@ Proxy::Proxy(size_t port) : portNum(port)
 // TODO: close socket
 Proxy::~Proxy()
 {
+    close(client_fd);
+    close(client_fd_connection);
+    close(server_fd);
 }
 
 int Proxy::run()
@@ -33,9 +36,9 @@ int Proxy::run()
     {
         // accept client connection
         socklen_t cliLen = sizeof(clientAddr);
-        int new_socket = accept(client_fd, (struct sockaddr *)&clientAddr, &cliLen);
+        client_fd_connection = accept(client_fd, (struct sockaddr *)&clientAddr, &cliLen);
 
-        if (new_socket < 0)
+        if (client_fd_connection < 0)
         {
             // LOG
             std::cerr << "Error accepting client connection" << std::endl;
@@ -51,7 +54,7 @@ int Proxy::run()
         }
         return 0;
         // }
-        close(new_socket);
+        close(client_fd_connection);
     }
 
     return 0;
@@ -99,13 +102,18 @@ int Proxy::handleRequest()
     int buf_sz = 65536;
     char *buf = new char[buf_sz];
     memset(buf, '\0', buf_sz);
-    int recvLength = recv(client_fd, buf, buf_sz, 0);
+    // char req_msg[65536] = {0};
+    // int len = recv(client_fd, req_msg, sizeof(req_msg), 0); // fisrt request from client
+    // std::cout << "len: " << len << std::endl;
+    int recvLength = recv(client_fd_connection, buf, buf_sz, 0); // fisrt request from client
+    // std::cout << "recvLength: " << recvLength << std::endl;
     if (recvLength < 0)
     {
         // LOG
         std::cerr << "Error receiving client request" << std::endl;
         return -1;
     }
+    // std::cout << "hello world" << std::endl;
     Request *httpClientRequest = new Request(buf);
     // print client request info
     std::cout << "client request: " << std::endl;
@@ -140,4 +148,3 @@ int Proxy::handleRequest()
 // int Proxy::processResponseServer(void);
 // int Proxy::prepareResponseClient(void);
 // int Proxy::sendResponseClient(void);
-

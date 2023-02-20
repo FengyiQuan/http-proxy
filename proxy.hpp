@@ -52,7 +52,7 @@ private:
     // int handleGet(void);
     // int handlePost(void);
 
-    int client_fd, server_fd;
+    int client_fd, client_fd_connection, server_fd;
     struct sockaddr_in proxyAddr, clientAddr;
 };
 
