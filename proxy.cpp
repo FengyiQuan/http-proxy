@@ -6,19 +6,7 @@
 //
 
 #include "proxy.hpp"
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <cstring>
-#include <stdexcept>
-#include <sstream>
-#include <pthread.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
+#include "request.hpp"
 
 Proxy::Proxy()
 {
@@ -50,6 +38,7 @@ int Proxy::run()
         if (new_socket < 0)
         {
             // LOG
+            std::cerr << "Error accepting client connection" << std::endl;
             return -1;
         }
 
@@ -74,6 +63,7 @@ int Proxy::initSocketClient()
     if (client_fd < 0)
     {
         // LOG
+        std::cerr << "Error creating client socket" << std::endl;
         return -1;
     }
     proxyAddr.sin_family = AF_INET;
@@ -100,7 +90,7 @@ int Proxy::initSocketClient()
 
 int Proxy::handleRequest()
 {
-    //    httpClientRequest = new HTTPRequest();
+
     //    httpClientResponse= new HTTPResponse();
     //    httpServerRequest = new HTTPRequest();
     //    httpServerResponse = new HTTPResponse();
@@ -113,16 +103,30 @@ int Proxy::handleRequest()
     if (recvLength < 0)
     {
         // LOG
+        std::cerr << "Error receiving client request" << std::endl;
         return -1;
     }
+    Request *httpClientRequest = new Request(buf);
+    // print client request info
+    std::cout << "client request: " << std::endl;
+    std::cout << "method: " << httpClientRequest->getMethod() << std::endl;
+    std::cout << "request target: " << httpClientRequest->getRequestTarget() << std::endl;
+    // std::cout << "version: " << httpClientRequest->getHeaders() << std::endl;
+    std::map<std::string, std::string>::iterator it;
+    for (it = httpClientRequest->getHeaders().begin(); it != httpClientRequest->getHeaders().end(); it++)
+    {
+        std::cout << it->first << ": " << it->second << std::endl;
+    }
+
     return 0;
 }
 
-int Proxy::handleConnect(void)
-{
-}
-int handleGet(void);
-int handlePost(void);
+// int Proxy::handleConnect(void)
+// {
+//     return 0;
+// }
+// int handleGet(void);
+// int handlePost(void);
 
 // int Proxy::initSocketServer(void);
 
@@ -136,3 +140,4 @@ int handlePost(void);
 // int Proxy::processResponseServer(void);
 // int Proxy::prepareResponseClient(void);
 // int Proxy::sendResponseClient(void);
+
