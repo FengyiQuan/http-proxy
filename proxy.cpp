@@ -114,7 +114,7 @@ int Proxy::handleRequest()
         return -1;
     }
     // std::cout << "hello world" << std::endl;
-    Request *httpClientRequest = new Request(buf);
+    Request *httpClientRequest = new Request(req_msg);
     // print client request info
     // std::cout << "client request: " << std::endl;
     std::cout << "method: " << httpClientRequest->getMethod() << std::endl;
