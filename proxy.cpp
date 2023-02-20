@@ -116,18 +116,29 @@ int Proxy::handleRequest()
     // std::cout << "hello world" << std::endl;
     Request *httpClientRequest = new Request(buf);
     // print client request info
-    std::cout << "client request: " << std::endl;
+    // std::cout << "client request: " << std::endl;
     std::cout << "method: " << httpClientRequest->getMethod() << std::endl;
     std::cout << "request target: " << httpClientRequest->getRequestTarget() << std::endl;
-    // std::cout << "version: " << httpClientRequest->getHeaders() << std::endl;
-    std::map<std::string, std::string>::iterator it;
-    for (it = httpClientRequest->getHeaders().begin(); it != httpClientRequest->getHeaders().end(); it++)
+    // // std::cout << "version: " << httpClientRequest->getHeaders() << std::endl;
+    std::cout << "headers: " << std::endl;
+    std::map<std::string, std::string> myMap = httpClientRequest->getHeaders();
+    for (std::map<std::string, std::string>::iterator it = myMap.begin(); it != myMap.end(); ++it)
     {
-        std::cout << it->first << ": " << it->second << std::endl;
+        std::cout << it->first << ":" << it->second <<  "\n";
     }
 
     return 0;
 }
+
+
+// request: GET http://123.com/ HTTP/1.1
+// Host: 123.com
+// User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/110.0
+// Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+// Accept-Language: en-US,en;q=0.5
+// Accept-Encoding: gzip, deflate
+// Connection: keep-alive
+// Upgrade-Insecure-Requests: 1
 
 // int Proxy::handleConnect(void)
 // {

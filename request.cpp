@@ -18,12 +18,16 @@ void Request::parseStartLine(std::string request)
 void Request::parseHeaders(std::string request)
 // header-field   = field-name ":" OWS field-value OWS
 {
+    // print request
+    // std::cout << "requesst: " << request << std::endl;
     size_t pos = request.find("\r\n");
     std::string header = request.substr(pos + 2);
+    // std::cout << "start at " << pos << ", start:" << header << std::endl;
     std::string line;
-    std::cout << "parse header start" << std::endl;
+    // std::cout << "parse header start" << std::endl;
     while ((pos = header.find("\r\n")) != std::string::npos)
     {
+        // std::cout << "start at " << pos << ", start:" << header << std::endl;
         line = header.substr(0, pos);
         size_t colon = line.find(":");
         std::string key = line.substr(0, colon);
@@ -31,8 +35,11 @@ void Request::parseHeaders(std::string request)
         std::string value = line.substr(colon + 1);
         value.erase(0, value.find_first_not_of("\t\n\v\f\r ")); // left trim
         value.erase(value.find_last_not_of("\t\n\v\f\r ") + 1); // right trim
-        headers[key] = value;                                   // insert key/value pair to struct
-        std::cout << key << ": " << value << std::endl;
+        if (!(key == "" && value == ""))
+        {
+            headers[key] = value;
+        } // insert key/value pair to struct
+        // std::cout << key << ": " << value << std::endl;
         header = header.substr(pos + 2);
     }
     // std::map<std::string, std::string>::iterator it;
