@@ -11,7 +11,7 @@
 #include <string>
 #include <stdlib.h>
 
-#define PORT "12345"
+#define PORT "12345" // proxy port
 
 int main(int argc, char *argv[])
 {

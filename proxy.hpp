@@ -23,6 +23,8 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+
+#include "request.hpp"
 class Proxy
 {
 public:
@@ -35,7 +37,7 @@ private:
     size_t portNum;
 
     int initSocketClient(void);
-    // int initSocketServer(void);
+    int initSocketServer(std::string address, size_t port);
 
     int handleRequest(void);
     // int recvRequestClient(void);
@@ -48,12 +50,13 @@ private:
     // int processResponseServer(void);
     // int prepareResponseClient(void);
     // int sendResponseClient(void);
-    // int handleConnect(void);
-    // int handleGet(void);
-    // int handlePost(void);
+    int handleConnect(Request *request);
+    int handleGet(Request *request);
+    int handlePost(Request *request);
 
     int client_fd, client_fd_connection, server_fd;
-    struct sockaddr_in proxyAddr, clientAddr;
+    // size_t serverPort;
+    struct sockaddr_in serverAddr, clientAddr;
 };
 
 #endif /* proxy_hpp */

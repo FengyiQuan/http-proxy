@@ -13,22 +13,23 @@ public:
     std::string getMethod();
     std::string getRequestTarget();
     std::map<std::string, std::string> getHeaders();
-
+    std::string getHost();
+    size_t getPort();
+    std::string getData();
 
 private:
     std::string start_line;
     std::string method;
     std::string request_target;
     // std::string protocol;
-    // std::string host;
-    // std::string port;
+    std::string host;
+    size_t port;
+    std::string data;
     // std::string path;
     std::map<std::string, std::string> headers;
 
     void parseStartLine(std::string request);
     void parseHeaders(std::string request);
-
-
 
     // std::string version; // http/1.1
     // std::string buf;
@@ -39,4 +40,3 @@ private:
 };
 
 #endif /* request_hpp */
-

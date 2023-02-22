@@ -2,8 +2,10 @@
 #include <iostream>
 Request::Request(std::string request)
 {
+    data = request;
     parseStartLine(request);
     parseHeaders(request);
+    // parseBody(request);
 }
 
 void Request::parseStartLine(std::string request)
@@ -33,10 +35,23 @@ void Request::parseHeaders(std::string request)
         std::string key = line.substr(0, colon);
 
         std::string value = line.substr(colon + 1);
-        value.erase(0, value.find_first_not_of("\t\n\v\f\r ")); // left trim    
+        value.erase(0, value.find_first_not_of("\t\n\v\f\r ")); // left trim
         value.erase(value.find_last_not_of("\t\n\v\f\r ") + 1); // right trim
         if (!(key == "" && value == ""))
         {
+            if (key == "Host")
+            {
+                size_t colon = value.find(":");
+                if (colon != std::string::npos)
+                {
+                    port = atoi(value.substr(colon + 1).c_str());
+                }
+                else
+                {
+                    host = value;
+                    port = 80;
+                }
+            }
             headers[key] = value;
         } // insert key/value pair to struct
         // std::cout << key << ": " << value << std::endl;
@@ -63,3 +78,18 @@ std::map<std::string, std::string> Request::getHeaders()
 {
     return headers;
 }
+
+std::string Request::getHost()
+{
+    return host;
+}
+size_t Request::getPort()
+{
+    return port;
+}
+
+std::string Request::getData()
+{
+    return data;
+}
+

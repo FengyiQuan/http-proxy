@@ -6,7 +6,7 @@
 //
 
 #include "proxy.hpp"
-#include "request.hpp"
+
 
 Proxy::Proxy()
 {
@@ -69,12 +69,12 @@ int Proxy::initSocketClient()
         std::cerr << "Error creating client socket" << std::endl;
         return -1;
     }
-    proxyAddr.sin_family = AF_INET;
-    proxyAddr.sin_addr.s_addr = INADDR_ANY;
-    proxyAddr.sin_port = htons(portNum);
+    clientAddr.sin_family = AF_INET;
+    clientAddr.sin_addr.s_addr = INADDR_ANY;
+    clientAddr.sin_port = htons(portNum);
 
     // bind to port 12345
-    int bindResult = bind(client_fd, (struct sockaddr *)&proxyAddr, sizeof(proxyAddr));
+    int bindResult = bind(client_fd, (struct sockaddr *)&clientAddr, sizeof(clientAddr));
     if (bindResult < 0)
     {
         // LOG
@@ -91,6 +91,28 @@ int Proxy::initSocketClient()
     return 0;
 }
 
+// socket conect to server
+int Proxy::initSocketServer(std::string addr, size_t port)
+{
+    server_fd = socket(AF_UNSPEC, SOCK_STREAM, 0);
+    if (server_fd < 0)
+    {
+        // LOG
+        std::cerr << "Error creating server socket" << std::endl;
+        return -1;
+    }
+    serverAddr.sin_family = AF_INET;
+    serverAddr.sin_port = htons(port);
+    serverAddr.sin_addr.s_addr = inet_addr(addr.c_str());
+
+    if ((connect(server_fd, (struct sockaddr *)&serverAddr, sizeof(serverAddr))) < 0)
+    {
+        // cerr<<funcName<<"Failed to connect"<<endl;
+        return -1;
+    }
+    return 0;
+}
+
 int Proxy::handleRequest()
 {
 
@@ -103,7 +125,7 @@ int Proxy::handleRequest()
     // char *buf = new char[buf_sz];
     // memset(buf, '\0', buf_sz);
     char req_msg[65536] = {0};
-    int recvLength = recv(client_fd, req_msg, sizeof(req_msg), 0); // fisrt request from client
+    int recvLength = recv(client_fd_connection, req_msg, sizeof(req_msg), 0); // fisrt request from client
     // std::cout << "len: " << len << std::endl;
     // int recvLength = recv(client_fd_connection, buf, buf_sz, 0); // fisrt request from client
     // std::cout << "recvLength: " << recvLength << std::endl;
@@ -115,21 +137,78 @@ int Proxy::handleRequest()
     }
     // std::cout << "hello world" << std::endl;
     Request *httpClientRequest = new Request(req_msg);
-    // print client request info
-    // std::cout << "client request: " << std::endl;
-    std::cout << "method: " << httpClientRequest->getMethod() << std::endl;
-    std::cout << "request target: " << httpClientRequest->getRequestTarget() << std::endl;
-    // // std::cout << "version: " << httpClientRequest->getHeaders() << std::endl;
-    std::cout << "headers: " << std::endl;
-    std::map<std::string, std::string> myMap = httpClientRequest->getHeaders();
-    for (std::map<std::string, std::string>::iterator it = myMap.begin(); it != myMap.end(); ++it)
+    if (httpClientRequest->getMethod() == "CONNECT")
     {
-        std::cout << it->first << ":" << it->second <<  "\n";
+        handleConnect(httpClientRequest);
+    }
+    else if (httpClientRequest->getMethod() == "GET")
+    {
+        handleGet(httpClientRequest);
+    }
+    else if (httpClientRequest->getMethod() == "POST")
+    {
+        handlePost(httpClientRequest);
+    }
+    else
+    {
+        // LOG
+        std::cerr << "Error: unknown method" << std::endl;
+        std::string req400 = "HTTP/1.1 400 Bad Request";
+        delete httpClientRequest;
+        return -1;
     }
     delete httpClientRequest;
     return 0;
 }
 
+// handleConnect
+int Proxy::handleConnect(Request *request)
+{
+    // make socket connection to server
+
+    if (initSocketServer(request->getHost(), request->getPort()) < 0)
+    {
+        // LOG
+        return -1;
+    }
+
+    return 0;
+}
+
+// handleGet from client and server
+int Proxy::handleGet(Request *request)
+{
+    if (initSocketServer(request->getHost(), request->getPort()) < 0)
+    {
+        // LOG
+        return -1;
+    }
+
+    std::string requestData = request->getData();
+    size_t dataSize = requestData.size();
+
+    if (send(server_fd, requestData.c_str(), dataSize, 0) < 0) // send request to server)
+    {
+        std::cerr << "Sending request failed" << std::endl;
+    }
+
+    char server_msg[65536] = {0};
+    int mes_len = recv(server_fd, server_msg, sizeof(server_msg), 0); // receive response from server
+
+    // print response
+    //print mes_len
+    std::cout << "Response from server: " << mes_len << std::endl;
+    std::cout << "Response from server: " << server_msg << std::endl;
+    // if ((send(sockfd_serv, buf, requestSize, 0)) < 0)
+
+    // delete buf;
+    return 0;
+}
+
+int Proxy::handlePost(Request *request)
+{
+    return 0;
+}
 
 // request: GET http://123.com/ HTTP/1.1
 // Host: 123.com
