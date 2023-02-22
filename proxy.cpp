@@ -94,7 +94,7 @@ int Proxy::initSocketClient()
 // socket conect to server
 int Proxy::initSocketServer(std::string addr, size_t port)
 {
-    server_fd = socket(AF_UNSPEC, SOCK_STREAM, 0);
+    server_fd = socket(AF_INET, SOCK_STREAM, 0);
     if (server_fd < 0)
     {
         // LOG
