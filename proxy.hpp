@@ -9,6 +9,7 @@
 #define proxy_hpp
 
 #include <stdio.h>
+#include <netdb.h>
 #include <netinet/in.h>
 #include <iostream>
 #include <fstream>
@@ -56,7 +57,8 @@ private:
 
     int client_fd, client_fd_connection, server_fd;
     // size_t serverPort;
-    struct sockaddr_in serverAddr, clientAddr;
+    struct sockaddr_in  clientAddr;
+    //serverAddr,
 };
 
 #endif /* proxy_hpp */
