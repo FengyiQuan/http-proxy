@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 #include <stdlib.h>
-
+#include <iostream>
 // #include "parser.hpp"
 class Request
 {

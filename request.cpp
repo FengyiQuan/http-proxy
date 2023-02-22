@@ -1,6 +1,6 @@
 #include "request.hpp"
 #include "parser.hpp"
-#include <iostream>
+
 Request::Request(std::string request)
 {
     data = request;
