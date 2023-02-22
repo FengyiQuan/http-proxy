@@ -52,8 +52,8 @@ int Proxy::run()
             return -1;
         }
         return 0;
-        // }
         close(client_fd_connection);
+	//return 0;
     }
 
     return 0;
@@ -141,6 +141,7 @@ int Proxy::handleRequest()
     // memset(buf, '\0', buf_sz);
     char req_msg[65536] = {0};
     int recvLength = recv(client_fd_connection, req_msg, sizeof(req_msg), 0); // fisrt request from client
+    // std::cout << "req_msg-----"<< std::endl << req_msg << std::endl;
     // std::cout << "len: " << len << std::endl;
     // int recvLength = recv(client_fd_connection, buf, buf_sz, 0); // fisrt request from client
     // std::cout << "recvLength: " << recvLength << std::endl;
@@ -195,12 +196,13 @@ int Proxy::handleConnect(Request *request)
 // handleGet from client and server
 int Proxy::handleGet(Request *request)
 {
+  std::cout << "this is a get request"<<std::endl;
     if (initSocketServer(request->getHost(), request->getPort()) < 0)
     {
         // LOG
         return -1;
     }
-
+    
     std::string requestData = request->getData();
     size_t dataSize = requestData.size();
 
@@ -212,7 +214,7 @@ int Proxy::handleGet(Request *request)
 
     char server_msg[65536] = {0};
     int mes_len = recv(server_fd, server_msg, sizeof(server_msg), 0); // receive response from server
-
+    std::cout << "server_msg---------"<< std::endl << server_msg << std::endl;
     if (mes_len < 0)
     {
         std::cerr << "Error receiving response from server" << std::endl;
@@ -220,8 +222,12 @@ int Proxy::handleGet(Request *request)
     }
 
     Response *httpServerResponse = new Response(server_msg);
-    // print
-    std::cout << "Response: " << httpServerResponse->getData() << std::endl;
+    // print everything
+    std::cout << "Response Object----:"<< std::endl  << httpServerResponse->getData() << std::endl;
+    // print status line
+    std::cout << "Status Line----:" << std::endl << httpServerResponse->getStatusLine() << std::endl;
+    // print status code
+    std::cout << "Status Code----:" << std::endl <<httpServerResponse->getStatusCode() << std::endl;
     // print isChunked
     std::cout << "isChunked: " << httpServerResponse->isChunked() << std::endl;
     if (httpServerResponse->isChunked())
@@ -251,9 +257,16 @@ int Proxy::handleGet(Request *request)
     else
     {
         // TODO: Cache
-
-        send(client_fd_connection, httpServerResponse->getData().c_str(), httpServerResponse->getData().size(), 0); // send response to client
+      // send response to client
+      long int send_status = send(client_fd_connection, httpServerResponse->getData().c_str(), httpServerResponse->getData().size(), 0);
+      if(send_status==-1){
+	std::cout << "send failed" << std::endl;
+      }
+      else {
+	std::cout << "send successful: send_status is: "<< send_status <<std::endl;
+      }
     }
+    std::cout<<"finish now"<<std::endl;
     // print isChunked
     // delete buf;
     delete httpServerResponse;
