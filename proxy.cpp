@@ -100,7 +100,8 @@ int Proxy::initSocketServer(std::string addr, size_t port)
     host_hints.ai_family = AF_UNSPEC;
     host_hints.ai_socktype = SOCK_STREAM;
     host_hints.ai_flags = AI_PASSIVE;
-    int status = getaddrinfo(addr.c_str(), std::to_string(port).c_str(), &host_hints, &host_res);
+    //int status = getaddrinfo(addr.c_str(), std::to_string(port).c_str(), &host_hints, &host_res);
+    int status = getaddrinfo(addr.c_str(), my_to_string(port).c_str(), &host_hints, &host_res);
     if (status < 0)
     {
         std::cerr << "Error: cannot get address info for host"

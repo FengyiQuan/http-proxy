@@ -62,4 +62,13 @@ private:
     //serverAddr,
 };
 
+// helper to_string for not using c++ 11
+template<class T>
+std::string my_to_string(const T &value) {
+    std::ostringstream stream;
+    stream << value;
+    return stream.str();
+}
+
+
 #endif /* proxy_hpp */
