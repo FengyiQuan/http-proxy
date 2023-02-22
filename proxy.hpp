@@ -26,6 +26,7 @@
 #include <sys/socket.h>
 
 #include "request.hpp"
+#include "response.hpp"
 class Proxy
 {
 public:

@@ -14,10 +14,13 @@ public:
     std::string getStatusLine();
     std::string getStatusCode();
     std::map<std::string, std::string> getHeaders();
+    std::string getData();
     // setter
     void setStatusLine(std::string status_line);
     void setStatusCode(std::string status_code);
     void setHeaders(std::map<std::string, std::string> headers);
+    bool isChunked();
+    
 
 private:
     std::string status_line;
@@ -25,7 +28,7 @@ private:
     std::string data;
 
     std::map<std::string, std::string> headers;
-    std::string body;
+    // std::string body;
 
     // std::string version; // http/1.1
     // std::string buf;

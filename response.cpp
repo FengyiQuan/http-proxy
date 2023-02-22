@@ -11,6 +11,23 @@ Response::Response(std::string response)
     delete p;
 }
 
+// isChunked
+bool Response::isChunked()
+{
+    if (headers.find("Transfer-Encoding") != headers.end())
+    {
+        if (headers["Transfer-Encoding"] == "chunked")
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+std::string Response::getData()
+{
+    return data;
+}
 std::string Response::getStatusLine()
 {
     return status_line;

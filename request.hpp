@@ -19,7 +19,7 @@ public:
     size_t getPort();
     std::string getData();
     std::string getStartLine();
-    std::map<std::string, std::string> getBody();
+    // std::map<std::string, std::string> getBody();
     // setter
     void setStartLine(std::string start_line);
     void setMethod(std::string method);

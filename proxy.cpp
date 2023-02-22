@@ -185,6 +185,8 @@ int Proxy::handleConnect(Request *request)
         // LOG
         return -1;
     }
+    // print request
+    std::cout << "Request: " << request->getData() << std::endl;
 
     return 0;
 }
@@ -204,20 +206,56 @@ int Proxy::handleGet(Request *request)
     if (send(server_fd, requestData.c_str(), dataSize, 0) < 0) // send request to server)
     {
         std::cerr << "Sending request failed" << std::endl;
+        return -1;
     }
 
     char server_msg[65536] = {0};
     int mes_len = recv(server_fd, server_msg, sizeof(server_msg), 0); // receive response from server
 
+    if (mes_len < 0)
+    {
+        std::cerr << "Error receiving response from server" << std::endl;
+        return -1;
+    }
 
-// chekc chunk
-    // print response
-    // print mes_len
-    std::cout << "Response from server: " << mes_len << std::endl;
-    std::cout << "Response from server: " << server_msg << std::endl;
-    // if ((send(sockfd_serv, buf, requestSize, 0)) < 0)
+    Response *httpServerResponse = new Response(server_msg);
+    // print
+    std::cout << "Response: " << httpServerResponse->getData() << std::endl;
+    // print isChunked
+    std::cout << "isChunked: " << httpServerResponse->isChunked() << std::endl;
+    if (httpServerResponse->isChunked())
+    {
+        send(client_fd_connection, httpServerResponse->getData().c_str(), httpServerResponse->getData().size(), 0); // send response to client
 
+        while (true)
+        {
+            char chunk[65536] = {0};
+            int chunk_len = recv(server_fd, chunk, sizeof(chunk), 0); // receive chunk from server
+
+            // print request
+            std::cout << "Chunk: " << chunk << std::endl;
+            // print len
+            std::cout << "Chunk len: " << chunk_len << std::endl;
+            if (chunk_len <= 0)
+            {
+                // print end
+                std::cout << "End of chunk" << std::endl;
+                break;
+            }
+            send(client_fd_connection, chunk, chunk_len, 0); // send chunk to client
+            // print successful
+            std::cout << "Successful" << std::endl;
+        }
+    }
+    else
+    {
+        // TODO: Cache
+
+        send(client_fd_connection, httpServerResponse->getData().c_str(), httpServerResponse->getData().size(), 0); // send response to client
+    }
+    // print isChunked
     // delete buf;
+    delete httpServerResponse;
     return 0;
 }
 
