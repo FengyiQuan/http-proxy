@@ -4,6 +4,8 @@
 #include <string>
 #include <map>
 #include <stdlib.h>
+
+// #include "parser.hpp"
 class Request
 {
 public:
@@ -16,6 +18,16 @@ public:
     std::string getHost();
     size_t getPort();
     std::string getData();
+    std::string getStartLine();
+    std::map<std::string, std::string> getBody();
+    // setter
+    void setStartLine(std::string start_line);
+    void setMethod(std::string method);
+    void setRequestTarget(std::string request_target);
+    void setHeaders(std::map<std::string, std::string> headers);
+    void setHost(std::string host);
+    void setPort(size_t port);
+    // void setBody(std::string body);
 
 private:
     std::string start_line;
@@ -28,8 +40,8 @@ private:
     // std::string path;
     std::map<std::string, std::string> headers;
 
-    void parseStartLine(std::string request);
-    void parseHeaders(std::string request);
+    // TODO: body
+    // std::string body;
 
     // std::string version; // http/1.1
     // std::string buf;

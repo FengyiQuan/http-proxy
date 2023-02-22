@@ -1,67 +1,13 @@
 #include "request.hpp"
+#include "parser.hpp"
 #include <iostream>
 Request::Request(std::string request)
 {
     data = request;
-    parseStartLine(request);
-    parseHeaders(request);
-    // parseBody(request);
-}
 
-void Request::parseStartLine(std::string request)
-{
-    size_t pos = request.find("\r\n");
-    start_line = request.substr(0, pos);
-    size_t firstSP = start_line.find(" ");
-    size_t lastSP = start_line.rfind(" ");
-    method = start_line.substr(0, firstSP);
-    request_target = start_line.substr(firstSP + 1, lastSP - firstSP - 1);
-}
-void Request::parseHeaders(std::string request)
-// header-field   = field-name ":" OWS field-value OWS
-{
-    // print request
-    // std::cout << "requesst: " << request << std::endl;
-    size_t pos = request.find("\r\n");
-    std::string header = request.substr(pos + 2);
-    // std::cout << "start at " << pos << ", start:" << header << std::endl;
-    std::string line;
-    // std::cout << "parse header start" << std::endl;
-    while ((pos = header.find("\r\n")) != std::string::npos)
-    {
-        // std::cout << "start at " << pos << ", start:" << header << std::endl;
-        line = header.substr(0, pos);
-        size_t colon = line.find(":");
-        std::string key = line.substr(0, colon);
-
-        std::string value = line.substr(colon + 1);
-        value.erase(0, value.find_first_not_of("\t\n\v\f\r ")); // left trim
-        value.erase(value.find_last_not_of("\t\n\v\f\r ") + 1); // right trim
-        if (!(key == "" && value == ""))
-        {
-            if (key == "Host")
-            {
-                size_t colon = value.find(":");
-                if (colon != std::string::npos)
-                {
-                    port = atoi(value.substr(colon + 1).c_str());
-                }
-                else
-                {
-                    host = value;
-                    port = 80;
-                }
-            }
-            headers[key] = value;
-        } // insert key/value pair to struct
-        // std::cout << key << ": " << value << std::endl;
-        header = header.substr(pos + 2);
-    }
-    // std::map<std::string, std::string>::iterator it;
-    // for (it = getHeaders().begin(); it != getHeaders().end(); it++)
-    // {
-    //     std::cout << it->first << ": " << it->second << std::endl;
-    // }
+    Parser *p = new Parser();
+    p->parse(request, this);
+    delete p;
 }
 
 std::string Request::getMethod()
@@ -92,4 +38,41 @@ std::string Request::getData()
 {
     return data;
 }
+
+
+std::string Request::getStartLine()
+{
+    return start_line;
+}
+
+void Request::setMethod(std::string method)
+{
+    this->method = method;
+}
+
+void Request::setRequestTarget(std::string request_target)
+{
+    this->request_target = request_target;
+}
+
+void Request::setHeaders(std::map<std::string, std::string> headers)
+{
+    this->headers = headers;
+}
+
+void Request::setHost(std::string host)
+{
+    this->host = host;
+}
+
+void Request::setPort(size_t port)
+{
+    this->port = port;
+}
+
+void Request::setStartLine(std::string start_line)
+{
+    this->start_line = start_line;
+}
+
 

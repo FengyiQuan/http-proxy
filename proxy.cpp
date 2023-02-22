@@ -93,60 +93,37 @@ int Proxy::initSocketClient()
 // socket conect to server
 int Proxy::initSocketServer(std::string addr, size_t port)
 {
-    struct addrinfo host_info;
-    struct addrinfo *host_info_list;
-    memset(&host_info, 0, sizeof(host_info));
-    host_info.ai_family = AF_UNSPEC;
-    host_info.ai_socktype = SOCK_STREAM;
-    host_info.ai_flags = AI_PASSIVE;
-    int status = getaddrinfo(addr.c_str(), std::to_string(port).c_str(), &host_info, &host_info_list);
-    if (status != 0)
+    // validation
+    struct addrinfo host_hints;
+    struct addrinfo *host_res;
+    memset(&host_hints, 0, sizeof(host_hints));
+    host_hints.ai_family = AF_UNSPEC;
+    host_hints.ai_socktype = SOCK_STREAM;
+    host_hints.ai_flags = AI_PASSIVE;
+    int status = getaddrinfo(addr.c_str(), std::to_string(port).c_str(), &host_hints, &host_res);
+    if (status < 0)
     {
-        std::cerr << "Error: cannot get address info for host" << std::endl;
+        std::cerr << "Error: cannot get address info for host"
+                  << " getaddrinfo: %s"
+                  << gai_strerror(status) << std::endl;
         return -1;
     }
-    server_fd = socket(host_info_list->ai_family,
-                       host_info_list->ai_socktype,
-                       host_info_list->ai_protocol);
-    if (server_fd == -1)
+    server_fd = socket(host_res->ai_family, host_res->ai_socktype, host_res->ai_protocol);
+    if (server_fd < 0)
     {
-        std::cerr << "Error: cannot create socket" << std::endl;
-        std::cerr << "  (" << addr << "," << port << ")" << std::endl;
+        std::cerr << "Error: cannot create socket to server to " << addr << std::endl;
         return -1;
     }
 
-    // cout << "Connecting to " << hostname << " on port " << port << "..." << endl;
-
-    status = connect(server_fd, host_info_list->ai_addr, host_info_list->ai_addrlen);
+    status = connect(server_fd, host_res->ai_addr, host_res->ai_addrlen);
     if (status == -1)
     {
-        std::cerr << "Error: cannot connect to socket" << std::endl;
-        std::cerr << "  (" << addr << "," << port << ")" << std::endl;
+        std::cerr << "Error: cannot connect to server to " << addr << std::endl;
         return -1;
     }
     std::cout << "Connect to server successfully\n";
-    freeaddrinfo(host_info_list);
-    // return socket_fd;
-    // server_fd = socket(AF_INET, SOCK_STREAM, 0);
-    // if (server_fd < 0)
-    // {
-    //     // LOG
-    //     std::cerr << "Error creating server socket" << std::endl;
-    //     return -1;
-    // }
-    // serverAddr.sin_family = AF_INET;
-    // serverAddr.sin_port = htons(port);
-    // serverAddr.sin_addr.s_addr = inet_addr(addr.c_str());
-    // // print port
-    // std::cout << "port: " << serverAddr.sin_port << std::endl;
-    // // print address
-    // std::cout << "address: " << serverAddr.sin_addr.s_addr << std::endl;
+    freeaddrinfo(host_res);
 
-    // if ((connect(server_fd, (struct sockaddr *)&serverAddr, sizeof(serverAddr))) < 0)
-    // {
-    //     std::cerr << "Failed to connect" << std::endl;
-    //     return -1;
-    // }
     return 0;
 }
 
@@ -232,6 +209,8 @@ int Proxy::handleGet(Request *request)
     char server_msg[65536] = {0};
     int mes_len = recv(server_fd, server_msg, sizeof(server_msg), 0); // receive response from server
 
+
+// chekc chunk
     // print response
     // print mes_len
     std::cout << "Response from server: " << mes_len << std::endl;
