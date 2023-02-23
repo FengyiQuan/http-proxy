@@ -24,22 +24,35 @@
 #include <unistd.h>
 #include <arpa/inet.h>
 #include <sys/socket.h>
+// #include <windows.h>
+#include <vector>
+#include <errno.h>
 
 #include "request.hpp"
 #include "response.hpp"
+#include "socket.hpp"
+#include "logger.hpp"
+
+#define BUF_LEN 65536
+#define OK "HTTP/1.1 200 OK\r\n\r\n"
+#define BADREQUEST "HTTP/1.1 400 Bad Request\r\n\r\n"
+#define BADGATEWAY "HTTP/1.1 502 Bad Gateway\r\n\r\n"
+#define NOTIMPLEMENTED "HTTP/1.1 501 Not Implemented\r\n\r\n"
 class Proxy
+
 {
 public:
-    Proxy();
     Proxy(size_t port);
+    // Proxy(std::string port);
     ~Proxy();
     int run(void);
 
 private:
     size_t portNum;
+    // std::string portNum;
 
-    int initSocketClient(void);
-    int initSocketServer(std::string address, size_t port);
+    int initSocketServer(void);
+    int initSocketClient(std::string address, size_t port);
 
     int handleRequest(void);
     // int recvRequestClient(void);
@@ -58,17 +71,16 @@ private:
 
     int client_fd, client_fd_connection, server_fd;
     // size_t serverPort;
-    struct sockaddr_in  clientAddr;
-    //serverAddr,
+    struct sockaddr_in clientAddr;
+    // serverAddr,
+
+    // helper to_string for not using c++ 11
+    template <class T>
+    std::string my_to_string(const T &value)
+    {
+        std::ostringstream stream;
+        stream << value;
+        return stream.str();
+    }
 };
-
-// helper to_string for not using c++ 11
-template<class T>
-std::string my_to_string(const T &value) {
-    std::ostringstream stream;
-    stream << value;
-    return stream.str();
-}
-
-
 #endif /* proxy_hpp */

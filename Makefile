@@ -3,8 +3,8 @@ CFLAGS = -Wall -Werror -std=gnu++98 -pedantic -ggdb3
 
 all: proxyyy
 
-proxyyy: main.cpp main.hpp proxy.hpp request.hpp response.hpp parser.hpp
-	g++ $(CFLAGS) -o proxyyy main.cpp proxy.cpp request.cpp response.cpp parser.cpp
+proxyyy: main.cpp main.hpp proxy.hpp request.hpp response.hpp parser.hpp logger.hpp socket.hpp
+	g++ $(CFLAGS) -o proxyyy main.cpp proxy.cpp request.cpp response.cpp parser.cpp logger.cpp socket.cpp
 
 clean:
 	rm -rf *.o proxyyy

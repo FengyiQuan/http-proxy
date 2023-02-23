@@ -9,5 +9,7 @@
 #define main_hpp
 
 #include <stdio.h>
+#include <iostream>
+#include <string>
 
 #endif /* main_hpp */
