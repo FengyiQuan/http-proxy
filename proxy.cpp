@@ -15,7 +15,7 @@ Proxy::Proxy(size_t port) : portNum(port)
 Proxy::~Proxy()
 {
     close(client_fd);
-    close(client_fd_connection);
+    // close(client_fd_connection);
     close(server_fd);
 }
 
@@ -33,7 +33,7 @@ int Proxy::run()
     {
         // accept client connection
         socklen_t cliLen = sizeof(clientAddr);
-        client_fd_connection = accept(client_fd, (struct sockaddr *)&clientAddr, &cliLen);
+        int client_fd_connection = accept(client_fd, (struct sockaddr *)&clientAddr, &cliLen);
 
         if (client_fd_connection < 0)
         {
@@ -42,13 +42,14 @@ int Proxy::run()
             return -1;
         }
 
-        // pthread_t thread;
-        // if (fork() == 0)
+        std::thread(&Proxy::handleRequest, client_fd_connection).detach();
+        // t.detach();
+
+        // spawn thread to handle request
+        // if (handleRequest())
         // {
-        if (handleRequest())
-        {
-            return -1;
-        }
+        //     return -1;
+        // }
 
         // close(client_fd_connection);
         // return 0;
@@ -134,7 +135,7 @@ int Proxy::initSocketClient(std::string address, size_t port)
     return 0;
 }
 
-int Proxy::handleRequest()
+int Proxy::handleRequest(int client_fd_connection)
 {
 
     //    httpClientResponse= new HTTPResponse();
@@ -160,15 +161,15 @@ int Proxy::handleRequest()
     Request *httpClientRequest = new Request(req_msg.data());
     if (httpClientRequest->getMethod() == "CONNECT")
     {
-        handleConnect(httpClientRequest);
+        handleConnect(httpClientRequest, client_fd_connection);
     }
     else if (httpClientRequest->getMethod() == "GET")
     {
-        handleGet(httpClientRequest);
+        handleGet(httpClientRequest, client_fd_connection);
     }
     else if (httpClientRequest->getMethod() == "POST")
     {
-        handlePost(httpClientRequest);
+        handlePost(httpClientRequest, client_fd_connection);
     }
     else
     {
@@ -183,7 +184,7 @@ int Proxy::handleRequest()
 }
 
 // handleConnect
-int Proxy::handleConnect(Request *request)
+int Proxy::handleConnect(Request *request, int client_fd_connection)
 {
     // make socket connection to server
 
@@ -199,7 +200,7 @@ int Proxy::handleConnect(Request *request)
 }
 
 // handleGet from client and server
-int Proxy::handleGet(Request *request)
+int Proxy::handleGet(Request *request, int client_fd_connection)
 {
     std::cout << "this is a get request" << std::endl;
     initSocketClient(request->getHost(), request->getPort());
@@ -313,7 +314,7 @@ int Proxy::handleGet(Request *request)
     return 0;
 }
 
-int Proxy::handlePost(Request *request)
+int Proxy::handlePost(Request *request, int client_fd_connection)
 {
     std::cout << "this is a post request" << std::endl;
     initSocketClient(request->getHost(), request->getPort());
@@ -330,7 +331,9 @@ int Proxy::handlePost(Request *request)
     {
         std::cerr << "Sending request failed" << std::endl;
         return -1;
-    }else{
+    }
+    else
+    {
         std::cout << "send request to server successfully" << std::endl;
     }
     std::vector<char> server_msg(BUF_LEN);

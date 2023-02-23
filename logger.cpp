@@ -1,4 +1,7 @@
 #include "logger.hpp"
+
+std::mutex mtx;
+std::ofstream logFile("./log.log");
 void print_thread_id(std::string log)
 {
     try

@@ -9,11 +9,10 @@
 #include <stdexcept> // std::logic_error
 #include <fstream>
 
-std::mutex mtx;
+extern std::mutex mtx;
 // std::ofstream logFile("/var/log/erss/proxy.log");
-std::ofstream logFile("./log.log");
+extern std::ofstream logFile;
 
 void print_thread_id(std::string log);
-
 
 #endif /* logger_hpp */

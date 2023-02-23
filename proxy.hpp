@@ -54,7 +54,7 @@ private:
     int initSocketServer(void);
     int initSocketClient(std::string address, size_t port);
 
-    int handleRequest(void);
+    int handleRequest(int client_fd_connection);
     // int recvRequestClient(void);
     // int parseRequestClient(void);
     // int processRequestClient(void);
@@ -65,11 +65,11 @@ private:
     // int processResponseServer(void);
     // int prepareResponseClient(void);
     // int sendResponseClient(void);
-    int handleConnect(Request *request);
-    int handleGet(Request *request);
-    int handlePost(Request *request);
+    int handleConnect(Request *request, int client_fd_connection);
+    int handleGet(Request *request, int client_fd_connection);
+    int handlePost(Request *request, int client_fd_connection);
 
-    int client_fd, client_fd_connection, server_fd;
+    int client_fd,  server_fd;
     // size_t serverPort;
     struct sockaddr_in clientAddr;
     // serverAddr,
