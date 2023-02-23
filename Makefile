@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Werror -std=gnu++98 -pedantic -ggdb3
+CFLAGS = -Wall -Werror -std=gnu++11 -pedantic -ggdb3
 #  
 
 all: proxyyy
