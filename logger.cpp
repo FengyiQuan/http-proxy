@@ -2,7 +2,7 @@
 
 std::mutex mtx;
 std::ofstream logFile("./log.log");
-void print_thread_id(std::string log)
+void LOG(std::string log)
 {
     try
     {

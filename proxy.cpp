@@ -271,6 +271,7 @@ int Proxy::handleGet(Request *request, int client_fd_connection)
         }
         else
         {
+            LOG("Responding " + request->getStartLine());
             std::cout << "send response to client successfully" << std::endl
                       << server_msg.data() << std::endl;
         }

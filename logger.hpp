@@ -13,6 +13,6 @@ extern std::mutex mtx;
 // std::ofstream logFile("/var/log/erss/proxy.log");
 extern std::ofstream logFile;
 
-void print_thread_id(std::string log);
+void LOG(std::string log);
 
 #endif /* logger_hpp */
