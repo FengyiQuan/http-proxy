@@ -41,8 +41,14 @@ int Proxy::run()
             std::cerr << "Error accepting client connection" << std::endl;
             return -1;
         }
-
+        // print
+        std::cout << "client_fd_connection: " << client_fd_connection << std::endl;
         std::thread(&Proxy::handleRequest, this, client_fd_connection).detach();
+
+        // sleep(5000);
+        // print
+        std::cout << "after client_fd_connection: " << client_fd_connection << std::endl;
+
         // t.detach();
 
         // spawn thread to handle request
@@ -53,7 +59,7 @@ int Proxy::run()
 
         // close(client_fd_connection);
         // return 0;
-        return 0;
+        // return 0;
     }
 
     return 0;
@@ -141,7 +147,7 @@ int Proxy::handleRequest(int client_fd_connection)
     //    httpClientResponse= new HTTPResponse();
     //    httpServerRequest = new HTTPRequest();
     //    httpServerResponse = new HTTPResponse();
-    // std::cout << "hello world" << std::endl;
+    std::cout << "hello world" << std::endl;
 
     // int buf_sz = 65536;
     // char *buf = new char[buf_sz];
@@ -150,6 +156,8 @@ int Proxy::handleRequest(int client_fd_connection)
     ssize_t recvLength = recv(client_fd_connection, &req_msg.data()[0], BUF_LEN, 0);
     // char req_msg[65536] = {0};
     // int recvLength = recv(client_fd_connection, req_msg, sizeof(req_msg), 0); // fisrt request from client
+    // print recvLength
+    std::cout << "recvLength: " << recvLength << std::endl;
 
     if (recvLength < 0)
     {
@@ -210,6 +218,7 @@ int Proxy::handleGet(Request *request, int client_fd_connection)
     if (server_fd < 0)
     {
         // LOG
+        std::cerr << "Error: cannot connect to server" << std::endl;
         return -1;
     }
 
@@ -230,6 +239,7 @@ int Proxy::handleGet(Request *request, int client_fd_connection)
     // int mes_len = recv(server_fd, server_msg, sizeof(server_msg), 0); // receive response from server
     if (server_mes_len == 0)
     {
+        std::cerr << "Error: server closed connection" << std::endl;
         return 0;
     }
     // std::cout << "server_msg---------" << std::endl
