@@ -16,7 +16,7 @@ Proxy::~Proxy()
 {
     close(client_fd);
     // close(client_fd_connection);
-    close(server_fd);
+    // close(server_fd);
 }
 
 int Proxy::run()
@@ -42,7 +42,7 @@ int Proxy::run()
             return -1;
         }
 
-        std::thread(&Proxy::handleRequest, client_fd_connection).detach();
+        std::thread(&Proxy::handleRequest, this, client_fd_connection).detach();
         // t.detach();
 
         // spawn thread to handle request
@@ -59,7 +59,7 @@ int Proxy::run()
     return 0;
 }
 
-// init connection between client and proxy
+// init connection between client and proxy, called on proxy
 int Proxy::initSocketServer()
 {
     // client_fd = init_server(std::to_string(portNum));
@@ -95,7 +95,7 @@ int Proxy::initSocketServer()
     return 0;
 }
 
-// socket conect to server
+// socket conect to server, clled on spawned thread
 int Proxy::initSocketClient(std::string address, size_t port)
 {
     // server_fd = init_client(address, std::to_string(port));
@@ -116,7 +116,7 @@ int Proxy::initSocketClient(std::string address, size_t port)
                   << gai_strerror(status) << std::endl;
         return -1;
     }
-    server_fd = socket(host_res->ai_family, host_res->ai_socktype, host_res->ai_protocol);
+    int server_fd = socket(host_res->ai_family, host_res->ai_socktype, host_res->ai_protocol);
     if (server_fd < 0)
     {
         std::cerr << "Error: cannot create socket to server to " << address << std::endl;
@@ -132,7 +132,7 @@ int Proxy::initSocketClient(std::string address, size_t port)
     std::cout << "Connect to server successfully\n";
     freeaddrinfo(host_res);
 
-    return 0;
+    return server_fd;
 }
 
 int Proxy::handleRequest(int client_fd_connection)
@@ -203,7 +203,7 @@ int Proxy::handleConnect(Request *request, int client_fd_connection)
 int Proxy::handleGet(Request *request, int client_fd_connection)
 {
     std::cout << "this is a get request" << std::endl;
-    initSocketClient(request->getHost(), request->getPort());
+    int server_fd = initSocketClient(request->getHost(), request->getPort());
     // server_fd = init_client(request->getHost(), std::to_string(request->getPort()));
     // print
     // std::cout << "init_client: " << std::endl;
@@ -317,7 +317,7 @@ int Proxy::handleGet(Request *request, int client_fd_connection)
 int Proxy::handlePost(Request *request, int client_fd_connection)
 {
     std::cout << "this is a post request" << std::endl;
-    initSocketClient(request->getHost(), request->getPort());
+    int server_fd = initSocketClient(request->getHost(), request->getPort());
     if (server_fd < 0)
     {
         // LOG

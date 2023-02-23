@@ -69,7 +69,8 @@ private:
     int handleGet(Request *request, int client_fd_connection);
     int handlePost(Request *request, int client_fd_connection);
 
-    int client_fd,  server_fd;
+    int client_fd;
+    //   server_fd;
     // size_t serverPort;
     struct sockaddr_in clientAddr;
     // serverAddr,
