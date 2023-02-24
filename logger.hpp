@@ -14,5 +14,9 @@ extern std::mutex mtx;
 extern std::ofstream logFile;
 
 void LOG(std::string log);
+// void LOG_Request(int id, std::string request, std::string server);
+// void LOG_Requesting(int id, std::string request, std::string server);
+// void LOG_Received(int id, std::string response, std::string server);
+std::string now();
 
 #endif /* logger_hpp */

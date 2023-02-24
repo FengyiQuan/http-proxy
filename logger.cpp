@@ -16,3 +16,12 @@ void LOG(std::string log)
         std::cout << "[exception caught]\n";
     }
 }
+std::string now()
+{
+    std::time_t now = std::time(0);
+    std::tm *now_tm = std::gmtime(&now);
+    char *t = asctime(now_tm);
+    std::string t_str(t);
+    t_str.erase(std::remove(t_str.begin(), t_str.end(), '\n'), t_str.cend());
+    return t_str;
+}

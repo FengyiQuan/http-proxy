@@ -81,8 +81,40 @@ int init_client(std::string hostname, std::string port)
 
     return socket_fd;
 }
+
 // listen for a connection and return the socket file descriptor
 int server_accept(int socket_fd, std::string *ip)
 {
     return 0;
+}
+
+// send data to a socket
+void send_data(int socket_fd, std::vector<char> data, size_t data_len)
+{
+
+    int recvLen = send(socket_fd, data.data(), data_len, 0);
+    if (recvLen == -1)
+    {
+        // std::cout << "Error: cannot send data" << std::endl;
+        std::cerr << "Error:: " << errno << std::endl;
+        perror("Error: cannot send data");
+        throw std::exception();
+    }
+    // std::cout << "send data: " << data << std::endl;
+    // return recvLen;
+}
+
+// receive data from a socket
+int recv_data(int socket_fd, std::vector<char> &req_msg)
+{
+    // std::vector<char> req_msg(BUF_LEN);
+    ssize_t recvLen = recv(socket_fd, &req_msg.data()[0], 65536, 0);
+    if (recvLen == -1)
+    {
+        // std::cout << "Error: cannot receive data" << std::endl;
+        std::cerr << "Error:: " << errno << std::endl;
+        perror("Error: cannot receive data");
+        throw std::exception();
+    }
+    return recvLen;
 }

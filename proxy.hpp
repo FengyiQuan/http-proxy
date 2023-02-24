@@ -9,6 +9,7 @@
 #define proxy_hpp
 
 #include <stdio.h>
+#include <ctime>
 #include <netdb.h>
 #include <netinet/in.h>
 #include <iostream>
@@ -32,14 +33,24 @@
 #include "response.hpp"
 #include "socket.hpp"
 #include "logger.hpp"
-
+#include "threadObject.hpp"
 #define BUF_LEN 65536
-#define OK "HTTP/1.1 200 OK\r\n\r\n"
-#define BADREQUEST "HTTP/1.1 400 Bad Request\r\n\r\n"
-#define BADGATEWAY "HTTP/1.1 502 Bad Gateway\r\n\r\n"
-#define NOTIMPLEMENTED "HTTP/1.1 501 Not Implemented\r\n\r\n"
-class Proxy
 
+// #define OK "HTTP/1.1 200 OK\r\n\r\n"
+// #define BADREQUEST "HTTP/1.1 400 Bad Request\r\n\r\n"
+// #define BADGATEWAY "HTTP/1.1 502 Bad Gateway\r\n\r\n"
+// #define NOTIMPLEMENTED "HTTP/1.1 501 Not Implemented\r\n\r\n"
+const std::string ok = "HTTP/1.1 200 OK\r\n\r\n";
+const std::string badRequest = "HTTP/1.1 400 Bad Request\r\n\r\n";
+const std::string badGateway = "HTTP/1.1 502 Bad Gateway\r\n\r\n";
+const std::string notImplemented = "HTTP/1.1 501 Not Implemented\r\n\r\n";
+
+const std::vector<char> OK(ok.begin(), ok.end());
+const std::vector<char> BADREQUEST(badRequest.begin(), badRequest.end());
+const std::vector<char> BADGATEWAY(badGateway.begin(), badGateway.end());
+const std::vector<char> NOTIMPLEMENTED(notImplemented.begin(), notImplemented.end());
+
+class Proxy
 {
 public:
     Proxy(size_t port);
@@ -54,7 +65,7 @@ private:
     int initSocketServer(void);
     int initSocketClient(std::string address, size_t port);
 
-    int handleRequest(int client_fd_connection);
+    int handleRequest(ThreadObject *threadObject);
     // int recvRequestClient(void);
     // int parseRequestClient(void);
     // int processRequestClient(void);
@@ -65,9 +76,9 @@ private:
     // int processResponseServer(void);
     // int prepareResponseClient(void);
     // int sendResponseClient(void);
-    int handleConnect(Request *request, int client_fd_connection);
-    int handleGet(Request *request, int client_fd_connection);
-    int handlePost(Request *request, int client_fd_connection);
+    int handleConnect(Request *request, int client_fd_connection, int requestId);
+    int handleGet(Request *request, int client_fd_connection, int requestId);
+    int handlePost(Request *request, int client_fd_connection, int requestId);
 
     int client_fd;
     //   server_fd;

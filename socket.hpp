@@ -9,6 +9,7 @@
 #include <string>
 #include <arpa/inet.h>
 #include <netdb.h>
+#include <vector>
 
 // create a server socket and return the socket file descriptor
 int init_server(std::string port);
@@ -16,5 +17,10 @@ int init_server(std::string port);
 int init_client(std::string hostname, std::string port);
 // listen for a connection and return the socket file descriptor
 int server_accept(int socket_fd, std::string *ip);
+
+// send data to a socket
+void send_data(int socket_fd, std::vector<char> data, size_t data_len);
+// receive data from a socket
+int recv_data(int socket_fd, std::vector<char> &req_msg);
 
 #endif /* socket_hpp */
