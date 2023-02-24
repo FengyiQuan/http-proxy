@@ -1,6 +1,4 @@
-0: "CONNECT www.google.com:443 HTTP/1.1" from 1.0.0.0 @ Fri Feb 24 15:04:34 2023
-0: Responding "HTTP/1.1 200 OK
-
-"
-0: "" from 1.0.0.0 @ Fri Feb 24 15:04:34 2023
+0: "CONNECT mozilla.cloudflare-dns.com:443 HTTP/1.1" from 1.0.0.0 @ Fri Feb 24 15:14:28 2023
+0: Responding "HTTP/1.1 200 OK"
+0: "" from 1.0.0.0 @ Fri Feb 24 15:14:28 2023
 0: Tunnel closed

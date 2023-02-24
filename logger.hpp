@@ -8,6 +8,7 @@
 #include <mutex>     // std::mutex, std::lock_guard
 #include <stdexcept> // std::logic_error
 #include <fstream>
+#include <algorithm>
 
 extern std::mutex mtx;
 // std::ofstream logFile("/var/log/erss/proxy.log");

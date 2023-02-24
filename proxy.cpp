@@ -204,8 +204,9 @@ int Proxy::handleConnect(Request *request, int client_fd_connection, int request
     // send 200 OK to client
 
     send_data(client_fd_connection, OK, OK.size());
+    // send(client_fd_connection, "HTTP/1.1 200 OK\r\n\r\n", 19, 0);
     std::ostringstream requestLog;
-    requestLog << requestId << ": Responding \"" << ok << "\"";
+    requestLog << requestId << ": Responding \"" << "HTTP/1.1 200 OK" << "\"";
     LOG(requestLog.str());
 
     int server_fd = initSocketClient(request->getHost(), request->getPort());
