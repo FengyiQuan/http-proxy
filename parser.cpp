@@ -108,8 +108,8 @@ void Parser::parseHeaders(std::string data, void *request, bool type)
 void Parser::parseBody(std::string data, void *request, bool type)
 {
     // message-body = *OCTET
-    size_t pos = data.find("\r\n\r\n");
-    std::string body = data.substr(pos + 4);
+    // size_t pos = data.find("\r\n\r\n");
+    // std::string body = data.substr(pos + 4);
     // std::map<std::string, std::string> body;
     // parse into key value pari and store into body
         

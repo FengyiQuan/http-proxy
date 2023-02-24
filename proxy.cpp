@@ -153,47 +153,47 @@ int Proxy::handleRequest(ThreadObject *threadObject)
     int client_fd_connection = threadObject->getClientConnectionFd();
     std::string ip = threadObject->getIp();
     size_t requestId = threadObject->getRequestId();
-    try
+    // try
+    // {
+    while (true)
     {
-        while (true)
+        std::vector<char> req_msg(BUF_LEN);
+        recv_data(client_fd_connection, req_msg);
+        Request *httpClientRequest = new Request(req_msg.data());
+        // log
+        std::ostringstream requestLog;
+        requestLog << requestId << ": \"" << httpClientRequest->getStartLine() << "\" from " << ip << " @ " << now();
+        LOG(requestLog.str());
+        if (httpClientRequest->getMethod() == "CONNECT")
         {
-            std::vector<char> req_msg(BUF_LEN);
-            recv_data(client_fd_connection, req_msg);
-            Request *httpClientRequest = new Request(req_msg.data());
-            // log
-            std::ostringstream requestLog;
-            requestLog << requestId << ": \"" << httpClientRequest->getStartLine() << "\" from " << ip << " @ " << now();
-            LOG(requestLog.str());
-            if (httpClientRequest->getMethod() == "CONNECT")
-            {
-                handleConnect(httpClientRequest, client_fd_connection, requestId);
-            }
-            else if (httpClientRequest->getMethod() == "GET")
-            {
-                handleGet(httpClientRequest, client_fd_connection, requestId);
-            }
-            else if (httpClientRequest->getMethod() == "POST")
-            {
-                handlePost(httpClientRequest, client_fd_connection, requestId);
-            }
-            else
-            {
-                // LOG
-                std::cerr << req_msg.data() << std::endl;
-                std::cerr << "Error: unknown method" << std::endl;
-                delete httpClientRequest;
-                return -1;
-            }
+            handleConnect(httpClientRequest, client_fd_connection, requestId);
+        }
+        else if (httpClientRequest->getMethod() == "GET")
+        {
+            handleGet(httpClientRequest, client_fd_connection, requestId);
+        }
+        else if (httpClientRequest->getMethod() == "POST")
+        {
+            handlePost(httpClientRequest, client_fd_connection, requestId);
+        }
+        else
+        {
+            // LOG
+            std::cerr << req_msg.data() << std::endl;
+            std::cerr << "Error: unknown method" << std::endl;
             delete httpClientRequest;
-        } /* code */
-    }
-    catch (const std::exception &e)
-    {
-        // handleRequest(threadObject);
-        std::cerr << "test: " << e.what() << '\n';
-        LOG(e.what());
-    }
-    close(client_fd_connection);
+            return -1;
+        }
+        delete httpClientRequest;
+    } /* code */
+    // }
+    // catch (const std::exception &e)
+    // {
+    //     // handleRequest(threadObject);
+    //     std::cerr << "test: " << e.what() << '\n';
+    //     LOG(e.what());
+    // }
+    // close(client_fd_connection);
     return 0;
 }
 
@@ -203,17 +203,23 @@ int Proxy::handleConnect(Request *request, int client_fd_connection, int request
     // make socket connection to server
     // send 200 OK to client
 
-    send_data(client_fd_connection, OK, OK.size());
-    // send(client_fd_connection, "HTTP/1.1 200 OK\r\n\r\n", 19, 0);
+    // send_data(client_fd_connection, OK, OK.size());
+    send(client_fd_connection, "HTTP/1.1 200 OK\r\n\r\n", 19, 0);
     std::ostringstream requestLog;
-    requestLog << requestId << ": Responding \"" << "HTTP/1.1 200 OK" << "\"";
+    requestLog << requestId << ": Responding \""
+               << "HTTP/1.1 200 OK"
+               << "\"";
     LOG(requestLog.str());
+
+    // print start tunnel
+    std::cout << "Start tunneling " << std::endl;
 
     int server_fd = initSocketClient(request->getHost(), request->getPort());
     fd_set fds;
     int nfds = std::max(client_fd_connection, server_fd);
     while (true)
     {
+        std::cout << "loiop" << std::endl;
         FD_ZERO(&fds);
         FD_SET(client_fd_connection, &fds);
         FD_SET(server_fd, &fds);
@@ -223,29 +229,15 @@ int Proxy::handleConnect(Request *request, int client_fd_connection, int request
             std::cerr << "Error: select error" << std::endl;
             return -1;
         }
-        if (FD_ISSET(client_fd_connection, &fds))
-        {
-            std::vector<char> client_data(BUF_LEN);
-            int client_data_len = recv_data(client_fd_connection, client_data);
-            // Request *clientRequest = new Request(client_data.data());
-            // // log
-            // std::ostringstream requestLog;
-            // requestLog << requestId << ": \"" << clientRequest->getStartLine() << "\" from " << client_fd_connection << " @ " << now();
-            // LOG(requestLog.str());
-            if (client_data_len == 0)
-            {
-                break;
-            }
-            send_data(server_fd, client_data, client_data_len);
-            // log requesting
-            // std::ostringstream requestLog;
-            // requestLog << requestId << ": Requesting \"" << clientRequest->getStartLine() << "\" from" << clientRequest->getHost();
-            // LOG(requestLog.str());
-        }
         if (FD_ISSET(server_fd, &fds))
         {
             std::vector<char> server_data(BUF_LEN);
+
+            std::cout << "waiting for server msg: " << std::endl;
             int server_data_len = recv_data(server_fd, server_data);
+            // print data
+            std::cout << "recived from server,len: " << server_data_len << std::endl;
+
             // Response *serverResponse = new Response(server_data.data());
             // log received
             // std::ostringstream receivedLog;
@@ -253,13 +245,48 @@ int Proxy::handleConnect(Request *request, int client_fd_connection, int request
             // LOG(requestLog.str());
             if (server_data_len == 0)
             {
-                break;
+                close(client_fd_connection);
+                close(server_fd);
+                return 0;
             }
-            send_data(client_fd_connection, server_data, server_data_len);
+            if (send(client_fd_connection, server_data.data(), server_data_len, 0) <= 0)
+            {
+                return -1;
+            }
+            // send_data(client_fd_connection, server_data, server_data_len);
+        }
+        if (FD_ISSET(client_fd_connection, &fds))
+        {
+            std::vector<char> client_data(BUF_LEN);
+            std::cout << "waiting for client msg: " << std::endl;
+            int client_data_len = recv_data(client_fd_connection, client_data);
+            std::cout << "recived for client msg, len: " << client_data_len << std::endl;
+            // Request *clientRequest = new Request(client_data.data());
+            // // log
+            // std::ostringstream requestLog;
+            // requestLog << requestId << ": \"" << clientRequest->getStartLine() << "\" from " << client_fd_connection << " @ " << now();
+            // LOG(requestLog.str());
+            if (client_data_len == 0)
+            {
+                close(server_fd);
+                close(client_fd_connection);
+                return 0;
+            }
+            // send_data(server_fd, client_data, client_data_len);
+            if (send(server_fd, client_data.data(), client_data_len, 0) <= 0)
+            {
+                return -1;
+            }
+            // log requesting
+            // std::ostringstream requestLog;
+            // requestLog << requestId << ": Requesting \"" << clientRequest->getStartLine() << "\" from" << clientRequest->getHost();
+            // LOG(requestLog.str());
         }
     }
     // log ID: Tunnel closed
     std::ostringstream closeLog;
+    // print close
+    std::cout << "Tunnel closed" << std::endl;
     closeLog << requestId << ": Tunnel closed";
     LOG(closeLog.str());
     return 0;
