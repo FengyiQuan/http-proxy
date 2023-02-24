@@ -1,4 +1,10 @@
-0: "CONNECT mozilla.cloudflare-dns.com:443 HTTP/1.1" from 1.0.0.0 @ Fri Feb 24 15:14:28 2023
+0: "CONNECT contile.services.mozilla.com:443 HTTP/1.1" from 1.0.0.0 @ Fri Feb 24 15:27:16 2023
 0: Responding "HTTP/1.1 200 OK"
-0: "" from 1.0.0.0 @ Fri Feb 24 15:14:28 2023
 0: Tunnel closed
+basic_string
+0: "CONNECT spocs.getpocket.com:443 HTTP/1.1" from 1.0.0.0 @ Fri Feb 24 15:27:18 2023
+0: Responding "HTTP/1.1 200 OK"
+0: Tunnel closed
+basic_string
+basic_string
+0: "POST http://r3.o.lencr.org/ HTTP/1.1" from 1.0.0.0 @ Fri Feb 24 15:27:21 2023

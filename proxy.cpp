@@ -49,7 +49,7 @@ int Proxy::run()
         int requestId = 0;
         ThreadObject threadObject(ip, requestId++, client_fd_connection);
 
-        std::thread(&Proxy::handleRequest, this, &threadObject).detach();
+        // std::thread(&Proxy::handleRequest, this, &threadObject).detach();
 
         // // sleep(5000);
         // // print
@@ -189,7 +189,7 @@ int Proxy::handleRequest(ThreadObject *threadObject)
     }
     catch (const std::exception &e)
     {
-        handleRequest(threadObject);
+        // handleRequest(threadObject);
         std::cerr << "test: " << e.what() << '\n';
         LOG(e.what());
     }
