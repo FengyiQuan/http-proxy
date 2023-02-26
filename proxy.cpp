@@ -26,6 +26,7 @@ int Proxy::run()
         // LOG
         return -1;
     }
+    Cache *cache = new Cache();
 
     while (true)
     {
@@ -47,9 +48,13 @@ int Proxy::run()
         // std::cout << "client_fd_connection: " << client_fd_connection << std::endl;
         // create thread object
         int requestId = 0;
-        ThreadObject threadObject(ip, requestId++, client_fd_connection);
+        // ThreadObject threadObject(ip, requestId++, client_fd_connection);
 
-        // std::thread(&Proxy::handleRequest, this, &threadObject).detach();
+        // std::   (&Proxy::handleRequest, this, &threadObject).detach();
+        // print new thread
+        std::cout << "new thread: " << requestId << std::endl;
+        std::thread(&Proxy::handleRequest, this, client_fd_connection, ip, requestId, cache).detach();
+        requestId += 1;
 
         // // sleep(5000);
         // // print
@@ -58,10 +63,10 @@ int Proxy::run()
         // t.detach();
 
         // spawn thread to handle request
-        if (handleRequest(&threadObject))
-        {
-            return -1;
-        }
+        // if (handleRequest(&threadObject))
+        // {
+        //     return -1;
+        // }
 
         // close(client_fd_connection);
         // return 0;
@@ -148,18 +153,21 @@ int Proxy::initSocketClient(std::string address, size_t port)
 }
 
 // entry point for handle request
-int Proxy::handleRequest(ThreadObject *threadObject)
+// int Proxy::handleRequest(ThreadObject *threadObject)
+int Proxy::handleRequest(int client_fd_connection, std::string ip, size_t requestId, Cache *cache)
 {
-    int client_fd_connection = threadObject->getClientConnectionFd();
-    std::string ip = threadObject->getIp();
-    size_t requestId = threadObject->getRequestId();
+    // int client_fd_connection = threadObject->getClientConnectionFd();
+    // std::string ip = threadObject->getIp();
+    // size_t requestId = threadObject->getRequestId();
+    // print ip
+    // std::cout << "ip: " << ip << std::endl;
     // try
     // {
     while (true)
     {
         std::vector<char> req_msg(BUF_LEN);
         recv_data(client_fd_connection, req_msg);
-        Request *httpClientRequest = new Request(req_msg.data());
+        Request *httpClientRequest = new Request(req_msg);
         // log
         std::ostringstream requestLog;
         requestLog << requestId << ": \"" << httpClientRequest->getStartLine() << "\" from " << ip << " @ " << now();
@@ -167,6 +175,11 @@ int Proxy::handleRequest(ThreadObject *threadObject)
         if (httpClientRequest->getMethod() == "CONNECT")
         {
             handleConnect(httpClientRequest, client_fd_connection, requestId);
+
+            // log
+            // std::ostringstream closeLog;
+            // std::cout << "Tunnel closed" << std::endl;
+            // closeLog << requestId << ": Tunnel closed";
         }
         else if (httpClientRequest->getMethod() == "GET")
         {
@@ -180,7 +193,13 @@ int Proxy::handleRequest(ThreadObject *threadObject)
         {
             // LOG
             std::cerr << req_msg.data() << std::endl;
-            std::cerr << "Error: unknown method" << std::endl;
+            std::cerr << "Error: unknown method: " << httpClientRequest->getStartLine() << std::endl;
+            // log 404
+            std::ostringstream requestLog;
+            requestLog << requestId << ": Responding \""
+                       << "HTTP/1.1 404 Not Found\""
+                       << std::endl;
+            LOG(requestLog.str());
             delete httpClientRequest;
             return -1;
         }
@@ -219,7 +238,7 @@ int Proxy::handleConnect(Request *request, int client_fd_connection, int request
     int nfds = std::max(client_fd_connection, server_fd);
     while (true)
     {
-        std::cout << "loiop" << std::endl;
+        // std::cout << "loop" << std::endl;
         FD_ZERO(&fds);
         FD_SET(client_fd_connection, &fds);
         FD_SET(server_fd, &fds);
@@ -233,22 +252,27 @@ int Proxy::handleConnect(Request *request, int client_fd_connection, int request
         {
             std::vector<char> server_data(BUF_LEN);
 
-            std::cout << "waiting for server msg: " << std::endl;
-            int server_data_len = recv_data(server_fd, server_data);
+            // std::cout << "waiting for server msg: " << std::endl;
+            // int server_data_len = recv_data(server_fd, server_data);
             // print data
-            std::cout << "recived from server,len: " << server_data_len << std::endl;
 
+            int server_data_len = recv(server_fd, &server_data.data()[0], BUF_LEN, 0);
+            if (server_data_len <= 0)
+            {
+                return 0;
+            }
+            // std::cout << "recived from server,len: " << server_data_len << std::endl;
             // Response *serverResponse = new Response(server_data.data());
-            // log received
+            // // log received
             // std::ostringstream receivedLog;
             // receivedLog << requestId << ": Received \"" << serverResponse->getStatusLine() << "\" from " ;
             // LOG(requestLog.str());
-            if (server_data_len == 0)
-            {
-                close(client_fd_connection);
-                close(server_fd);
-                return 0;
-            }
+            // if (server_data_len == 0)
+            // {
+            //     close(client_fd_connection);
+            //     close(server_fd);
+            //     return 0;
+            // }
             if (send(client_fd_connection, server_data.data(), server_data_len, 0) <= 0)
             {
                 return -1;
@@ -258,18 +282,19 @@ int Proxy::handleConnect(Request *request, int client_fd_connection, int request
         if (FD_ISSET(client_fd_connection, &fds))
         {
             std::vector<char> client_data(BUF_LEN);
-            std::cout << "waiting for client msg: " << std::endl;
-            int client_data_len = recv_data(client_fd_connection, client_data);
-            std::cout << "recived for client msg, len: " << client_data_len << std::endl;
+            // std::cout << "waiting for client msg: " << std::endl;
+            // int client_data_len = recv_data(client_fd_connection, client_data);
+            int client_data_len = recv(client_fd_connection, &client_data.data()[0], BUF_LEN, 0);
+            // std::cout << "recived for client msg, len: " << client_data_len << std::endl;
             // Request *clientRequest = new Request(client_data.data());
-            // // log
+            // log
             // std::ostringstream requestLog;
-            // requestLog << requestId << ": \"" << clientRequest->getStartLine() << "\" from " << client_fd_connection << " @ " << now();
+            // requestLog << requestId << ": \"" << clientRequest->getStartLine() << "\" from " << clientRequest->getHost() << " @ " << now();
             // LOG(requestLog.str());
             if (client_data_len == 0)
             {
-                close(server_fd);
-                close(client_fd_connection);
+                // close(server_fd);
+                // close(client_fd_connection);
                 return 0;
             }
             // send_data(server_fd, client_data, client_data_len);
@@ -307,7 +332,7 @@ int Proxy::handleGet(Request *request, int client_fd_connection, int requestId)
             return -1;
         }
 
-        std::string requestData = request->getData();
+        std::vector<char> requestData = request->getData();
         std::string requestLine = request->getStartLine();
         std::string requestHost = request->getHost();
         // if cache hit
@@ -327,7 +352,7 @@ int Proxy::handleGet(Request *request, int client_fd_connection, int requestId)
 
             std::vector<char> server_msg(65536);
             int recvLen = recv_data(server_fd, server_msg);
-            Response *httpServerResponse = new Response(server_msg.data());
+            Response *httpServerResponse = new Response(server_msg);
 
             std::ostringstream receivedLog;
             receivedLog << requestId << ": Received \"" << httpServerResponse->getStatusLine() << "\" from " << requestHost;
@@ -381,32 +406,49 @@ int Proxy::handlePost(Request *request, int client_fd_connection, int requestId)
 {
     std::cout << "this is a post request" << std::endl;
     int server_fd = initSocketClient(request->getHost(), request->getPort());
+
     if (server_fd < 0)
     {
         // LOG
+        std::cerr << "Error: cannot connect to server" << std::endl;
         return -1;
     }
 
-    // std::string requestData = request->getData();
-    // size_t dataSize = requestData.size();
+    std::vector<char> requestData = request->getData();
+    std::string requestLine = request->getStartLine();
+    std::string requestHost = request->getHost();
+    // std::vector<char> temp_data(requestData.begin(), requestData.end());
+    // std::copy(requestData.begin(), requestData.end(), temp_data.begin());
+    send_data(server_fd, requestData, requestData.size());
 
-    // send_data(server_fd, requestData.c_str(), requestData.size()); // send request to server)
+    std::vector<char> server_msg(65536);
+    int recvLen = recv_data(server_fd, server_msg);
 
-    // std::vector<char> server_msg = recv_data(server_fd);
+    Response *httpServerResponse = new Response(server_msg);
 
-    // send_data(client_fd, server_msg.data()); // send response to client
+    std::ostringstream receivedLog;
+    receivedLog << requestId << ": Received \"" << httpServerResponse->getStatusLine() << "\" from " << requestHost;
+    LOG(receivedLog.str());
+
+    send_data(client_fd_connection, server_msg, recvLen);
+    std::ostringstream respondingLog;
+    respondingLog << requestId << ": Responding \"" << httpServerResponse->getStatusLine() << "\"";
+    LOG(respondingLog.str());
+    delete httpServerResponse;
 
     return 0;
 }
 
-// int Proxy::handleConnect(void)
-// {
-//     return 0;
-// }
-// int handleGet(void);
-// int handlePost(void);
-
-// int Proxy::initSocketServer(void);
+bool Proxy::revalidate(Request *request, int server_fd, int requestId, Cache *cache)
+{
+    // get header
+    std::map<std::string, std::string> headers = request->getHeaders();
+    if (headers.find("Etag") == headers.end() || request->getHeaders().find("Etag") == headers.end())
+    {
+        return true;
+    }
+    return false;
+}
 
 // int Proxy::recvRequestClient(void);
 // int Proxy::parseRequestClient(void);

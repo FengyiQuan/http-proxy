@@ -1,12 +1,12 @@
 #include "request.hpp"
 #include "parser.hpp"
 
-Request::Request(std::string request)
+Request::Request(std::vector<char> request)
 {
     data = request;
 
     Parser *p = new Parser();
-    p->parse(request, this);
+    p->parse(request.data(), this);
     delete p;
 }
 
@@ -34,7 +34,7 @@ size_t Request::getPort()
     return port;
 }
 
-std::string Request::getData()
+std::vector<char> Request::getData()
 {
     return data;
 }

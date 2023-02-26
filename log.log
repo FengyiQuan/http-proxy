@@ -1,2 +1,54 @@
-0: "CONNECT www.google.com:443 HTTP/1.1" from 1.0.0.0 @ Fri Feb 24 16:28:16 2023
+0: "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from 1.0.0.0 @ Sun Feb 26 03:00:17 2023
+0: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+0: Received "HTTP/1.1 200 OK" from www.httpwatch.com
+0: Responding "HTTP/1.1 200 OK"
+0: "CONNECT firefox.settings.services.mozilla.com:443 HTTP/1.1" from 1.0.0.0 @ Sun Feb 26 03:00:17 2023
+0: Responding "HTTP/1.1 200 OK"
+0: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 1.0.0.0 @ Sun Feb 26 03:00:17 2023
+0: Responding "HTTP/1.1 200 OK"
+0: "" from 1.0.0.0 @ Sun Feb 26 03:00:21 2023
+0: Responding "HTTP/1.1 404 Not Found"
+
+0: "GET http://httpbin.org/forms/post HTTP/1.1" from 1.0.0.0 @ Sun Feb 26 03:00:21 2023
+0: "" from 1.0.0.0 @ Sun Feb 26 03:00:21 2023
+0: Responding "HTTP/1.1 404 Not Found"
+
+0: "" from 1.0.0.0 @ Sun Feb 26 03:00:21 2023
+0: Responding "HTTP/1.1 404 Not Found"
+
+0: Requesting "GET http://httpbin.org/forms/post HTTP/1.1" from httpbin.org
+0: Received "HTTP/1.1 200 OK" from httpbin.org
+0: Responding "HTTP/1.1 200 OK"
+0: "GET http://httpbin.org/favicon.ico HTTP/1.1" from 1.0.0.0 @ Sun Feb 26 03:00:22 2023
+0: Requesting "GET http://httpbin.org/favicon.ico HTTP/1.1" from httpbin.org
+0: Received "HTTP/1.1 404 NOT FOUND" from httpbin.org
+0: Responding "HTTP/1.1 404 NOT FOUND"
+0: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 1.0.0.0 @ Sun Feb 26 03:00:24 2023
+0: Responding "HTTP/1.1 200 OK"
+0: "CONNECT contile-images.services.mozilla.com:443 HTTP/1.1" from 1.0.0.0 @ Sun Feb 26 03:00:25 2023
+0: Responding "HTTP/1.1 200 OK"
+0: "CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1" from 1.0.0.0 @ Sun Feb 26 03:00:25 2023
+0: Responding "HTTP/1.1 200 OK"
+0: "CONNECT www.google.com:443 HTTP/1.1" from 1.0.0.0 @ Sun Feb 26 03:00:25 2023
+0: Responding "HTTP/1.1 200 OK"
+0: "" from 1.0.0.0 @ Sun Feb 26 03:00:25 2023
+0: Responding "HTTP/1.1 404 Not Found"
+
+0: "CONNECT www.google.com:443 HTTP/1.1" from 1.0.0.0 @ Sun Feb 26 03:00:25 2023
+0: Responding "HTTP/1.1 200 OK"
+0: "POST http://ocsp.pki.goog/gts1c3 HTTP/1.1" from 1.0.0.0 @ Sun Feb 26 03:00:25 2023
+0: Received "HTTP/1.1 200 OK" from ocsp.pki.goog
+0: Responding "HTTP/1.1 200 OK"
+0: "CONNECT mozilla.cloudflare-dns.com:443 HTTP/1.1" from 1.0.0.0 @ Sun Feb 26 03:00:27 2023
+0: Responding "HTTP/1.1 200 OK"
+0: "CONNECT www.google.com:443 HTTP/1.1" from 1.0.0.0 @ Sun Feb 26 03:00:33 2023
+0: Responding "HTTP/1.1 200 OK"
+0: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 1.0.0.0 @ Sun Feb 26 03:00:33 2023
+0: Responding "HTTP/1.1 200 OK"
+0: "CONNECT adservice.google.com:443 HTTP/1.1" from 1.0.0.0 @ Sun Feb 26 03:00:33 2023
+0: Responding "HTTP/1.1 200 OK"
+0: "CONNECT googleads.g.doubleclick.net:443 HTTP/1.1" from 1.0.0.0 @ Sun Feb 26 03:00:33 2023
+0: Responding "HTTP/1.1 200 OK"
+0: "POST http://ocsp.pki.goog/gts1c3 HTTP/1.1" from 1.0.0.0 @ Sun Feb 26 03:00:33 2023
+0: Received "HTTP/1.1 200 OK" from ocsp.pki.goog
 0: Responding "HTTP/1.1 200 OK"

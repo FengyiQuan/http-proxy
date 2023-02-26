@@ -91,15 +91,36 @@ int server_accept(int socket_fd, std::string *ip)
 // send data to a socket
 void send_data(int socket_fd, std::vector<char> data, size_t data_len)
 {
+    int total = 0;            // how many bytes we've sent
+    int bytesleft = data_len; // how many we have left to send
+    int n;
 
-    int recvLen = send(socket_fd, data.data(), data_len, 0);
-    if (recvLen == -1)
+    while (total < data_len)
     {
-        // std::cout << "Error: cannot send data" << std::endl;
-        std::cerr << "Error:: " << errno << std::endl;
-        perror("Error: cannot send data");
-        throw std::exception();
+        n = send(socket_fd, data.data() + total, bytesleft, 0);
+        if (n == -1)
+        {
+            std::cerr << "Error:: " << errno << std::endl;
+            perror("Error: cannot send data");
+            throw std::exception();
+            // break;
+        }
+        total += n;
+        bytesleft -= n;
     }
+
+    // len = total; // return number actually sent here
+
+    // return n == -1 ? -1 : 0; // return -1 on failure, 0 on success
+
+    // int recvLen = send(socket_fd, data.data(), data_len, 0);
+    // if (recvLen == -1)
+    // {
+    //     // std::cout << "Error: cannot send data" << std::endl;
+    //     std::cerr << "Error:: " << errno << std::endl;
+    //     perror("Error: cannot send data");
+    //     throw std::exception();
+    // }
     // std::cout << "send data: " << data << std::endl;
     // return recvLen;
 }
@@ -108,11 +129,14 @@ void send_data(int socket_fd, std::vector<char> data, size_t data_len)
 int recv_data(int socket_fd, std::vector<char> &req_msg)
 {
     // std::vector<char> req_msg(BUF_LEN);
+    // print socket_fd
+    // std::cout << "socket_fd: " << socket_fd << std::endl;
     ssize_t recvLen = recv(socket_fd, &req_msg.data()[0], 65536, 0);
+
     if (recvLen == -1)
     {
         // std::cout << "Error: cannot receive data" << std::endl;
-        std::cerr << "Error:: " << errno << std::endl;
+        std::cerr << "Error:: " << strerror(errno) << std::endl;
         perror("Error: cannot receive data");
         throw std::exception();
     }

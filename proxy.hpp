@@ -33,7 +33,8 @@
 #include "response.hpp"
 #include "socket.hpp"
 #include "logger.hpp"
-#include "threadObject.hpp"
+#include "cache.hpp"
+// #include "threadObject.hpp"
 #define BUF_LEN 65536
 
 // #define OK "HTTP/1.1 200 OK\r\n\r\n"
@@ -65,7 +66,8 @@ private:
     int initSocketServer(void);
     int initSocketClient(std::string address, size_t port);
 
-    int handleRequest(ThreadObject *threadObject);
+    // int handleRequest(ThreadObject *threadObject);
+    int handleRequest(int client_fd_connection, std::string ip, size_t requestId, Cache *cache);
     // int recvRequestClient(void);
     // int parseRequestClient(void);
     // int processRequestClient(void);
@@ -79,6 +81,7 @@ private:
     int handleConnect(Request *request, int client_fd_connection, int requestId);
     int handleGet(Request *request, int client_fd_connection, int requestId);
     int handlePost(Request *request, int client_fd_connection, int requestId);
+    bool revalidate(Request *request, int server_fd, int requestId, Cache *cache);
 
     int client_fd;
     //   server_fd;

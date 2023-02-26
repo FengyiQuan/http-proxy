@@ -1,12 +1,12 @@
 #include "response.hpp"
 #include "parser.hpp"
 
-Response::Response(std::string response)
+Response::Response(std::vector<char> response)
 {
-    data = response;
-
+    this->data = response;
+    // cache_control = std::vector<std::string>();
     Parser *p = new Parser();
-    p->parse(response, this);
+    p->parse(response.data(), this);
     delete p;
 }
 
@@ -23,7 +23,7 @@ bool Response::isChunked()
     return false;
 }
 
-std::string Response::getData()
+std::vector<char> Response::getData()
 {
     return data;
 }
@@ -42,6 +42,15 @@ std::map<std::string, std::string> Response::getHeaders()
     return headers;
 }
 
+std::string Response::getCacheControl()
+{
+    if (headers.find("Cache-Control") != headers.end())
+    {
+        return headers["Cache-Control"];
+    }
+    return "";
+}
+
 void Response::setStatusLine(std::string status_line)
 {
     this->status_line = status_line;
@@ -56,5 +65,10 @@ void Response::setHeaders(std::map<std::string, std::string> headers)
 {
     this->headers = headers;
 }
+
+// void Response::setCacheControl(std::vector<std::string> cache_control)
+// {
+//     this->cache_control = cache_control;
+// }
 
 // Path: request.cpp
