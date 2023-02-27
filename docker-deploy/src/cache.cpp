@@ -80,13 +80,13 @@ bool Cache::checkCacheControl(Response &response, int requestId)
     {
         // log ID: not cacheable because REASON
         std::ostringstream cacheLog;
-        cacheLog << requestId << "cached, but requires re-validation" << std::endl;
+        cacheLog << requestId << ": cached, but requires re-validation" << std::endl;
         LOG(cacheLog.str());
     }
     if (cacheControl.find("max-age") != std::string::npos)
     {
         std::ostringstream cacheLog;
-        cacheLog << requestId << "cached, expires at" << response.getExpiredTime() << std::endl;
+        cacheLog << requestId << ": cached, expires at " << response.getExpiredTime() << std::endl;
         LOG(cacheLog.str());
     }
 
