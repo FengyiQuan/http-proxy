@@ -175,10 +175,12 @@ int Proxy::handleRequest(int client_fd_connection, std::string ip, size_t reques
             {
                 handleConnect(httpClientRequest, client_fd_connection, requestId);
 
+                // std::cout << "client_info->getID()"
+                //           << ": Tunnel closed" << std::endl;
                 // log
                 // std::ostringstream closeLog;
-                // std::cout << "Tunnel closed" << std::endl;
-                // closeLog << requestId << ": Tunnel closed";
+                // std::cout << "Tunnel closed xxxxxxxxx" << std::endl;
+                // closeLog << requestId << ": Tunnel closed xxxxxxxxxxxxxxxxxxxxxx";
             }
             else if (httpClientRequest->getMethod() == "GET")
             {
@@ -263,7 +265,7 @@ int Proxy::handleConnect(Request *request, int client_fd_connection, int request
     LOG(requestLog.str());
 
     // print start tunnel
-    std::cout << "Start tunneling " << std::endl;
+    // std::cout << "Start tunneling " << std::endl;
 
     fd_set fds;
     int nfds = std::max(client_fd_connection, server_fd);
@@ -273,7 +275,10 @@ int Proxy::handleConnect(Request *request, int client_fd_connection, int request
         FD_ZERO(&fds);
         FD_SET(client_fd_connection, &fds);
         FD_SET(server_fd, &fds);
+        // std::cout << "bloteststestseck here" << std::endl;
         int ret = select(nfds + 1, &fds, NULL, NULL, NULL);
+        // print
+        // std::cout << "block here" << std::endl;
         if (ret < 0)
         {
             std::cerr << "Error: select error" << std::endl;
@@ -290,9 +295,11 @@ int Proxy::handleConnect(Request *request, int client_fd_connection, int request
             int server_data_len = recv(server_fd, &server_data.data()[0], BUF_LEN, 0);
             if (server_data_len <= 0)
             {
+                // print
+                std::cerr << "Error: recv from server error" << std::endl;
                 // close cliend_fd_connection
-                close(server_fd);
-                close(client_fd_connection);
+                // close(server_fd);
+                // close(client_fd_connection);
                 break;
                 // return 0;
             }
@@ -330,8 +337,10 @@ int Proxy::handleConnect(Request *request, int client_fd_connection, int request
             // LOG(requestLog.str());
             if (client_data_len <= 0)
             {
-                close(server_fd);
-                close(client_fd_connection);
+                // print
+                std::cerr << "Error: recv from client error" << std::endl;
+                // close(server_fd);
+                // close(client_fd_connection);
                 break;
                 // return 0;
             }
