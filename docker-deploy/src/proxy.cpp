@@ -493,7 +493,7 @@ int Proxy::handleGet(Request *request, int client_fd_connection, int requestId, 
     {
         // delete httpServerResponse;
         close(server_fd);
-        std::cerr << e.what() << '\n';
+        // std::cerr << e.what() << '\n';
     }
 
     close(server_fd);

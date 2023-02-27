@@ -41,6 +41,10 @@ void Parser::parseStartLine(std::string data, void *request, bool type)
         // request-line = method SP request-target SP HTTP-version CRLF
         Request *r = (Request *)request;
         size_t pos = data.find("\r\n");
+        // if (pos == std::string::npos)
+        // {
+        //     return;
+        // }
         r->setStartLine(data.substr(0, pos));
         std::string start_line = r->getStartLine();
         size_t firstSP = start_line.find(" ");
