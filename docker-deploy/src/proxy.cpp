@@ -223,6 +223,7 @@ int Proxy::handleRequest(int client_fd_connection, std::string ip, size_t reques
             // send 502 to client
             send_data(client_fd_connection, BAD_GATEWAY, BAD_GATEWAY.size());
         }
+        handleRequest(client_fd_connection, ip, requestId, cache);
     }
     catch (std::exception const &e)
     {
