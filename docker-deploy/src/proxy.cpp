@@ -27,7 +27,7 @@ int Proxy::run()
         return -1;
     }
     Cache *cache = new Cache();
-
+    int requestId = 0;
     while (true)
     {
         // accept client connection
@@ -47,7 +47,7 @@ int Proxy::run()
         // print
         // std::cout << "client_fd_connection: " << client_fd_connection << std::endl;
         // create thread object
-        int requestId = 0;
+
         // ThreadObject threadObject(ip, requestId++, client_fd_connection);
 
         // std::   (&Proxy::handleRequest, this, &threadObject).detach();
@@ -290,7 +290,11 @@ int Proxy::handleConnect(Request *request, int client_fd_connection, int request
             int server_data_len = recv(server_fd, &server_data.data()[0], BUF_LEN, 0);
             if (server_data_len <= 0)
             {
-                return 0;
+                // close cliend_fd_connection
+                close(server_fd);
+                close(client_fd_connection);
+                break;
+                // return 0;
             }
             // std::cout << "recived from server,len: " << server_data_len << std::endl;
             // Response *serverResponse = new Response(server_data.data());
@@ -306,6 +310,8 @@ int Proxy::handleConnect(Request *request, int client_fd_connection, int request
             // }
             if (send(client_fd_connection, server_data.data(), server_data_len, 0) <= 0)
             {
+                // print
+                std::cerr << "Error: send to client error" << std::endl;
                 return -1;
             }
             // send_data(client_fd_connection, server_data, server_data_len);
@@ -322,15 +328,18 @@ int Proxy::handleConnect(Request *request, int client_fd_connection, int request
             // std::ostringstream requestLog;
             // requestLog << requestId << ": \"" << clientRequest->getStartLine() << "\" from " << clientRequest->getHost() << " @ " << now();
             // LOG(requestLog.str());
-            if (client_data_len == 0)
+            if (client_data_len <= 0)
             {
-                // close(server_fd);
-                // close(client_fd_connection);
-                return 0;
+                close(server_fd);
+                close(client_fd_connection);
+                break;
+                // return 0;
             }
             // send_data(server_fd, client_data, client_data_len);
             if (send(server_fd, client_data.data(), client_data_len, 0) <= 0)
             {
+                // print
+                std::cerr << "Error: send to server error" << std::endl;
                 return -1;
             }
             // log requesting

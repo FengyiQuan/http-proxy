@@ -1,54 +1,18 @@
-0: "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 04:16:31 2023
-0: "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" not in cache
-0: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
-0: Received "HTTP/1.1 200 OK" from www.httpwatch.com
-0: NOTE Cache-Control: no-cache, no-store
+0: "CONNECT www.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:26:37 2023
 0: Responding "HTTP/1.1 200 OK"
-0: "GET http://www.testingmcafeesites.com/testcat_ac.html HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 04:16:32 2023
-0: "GET http://www.testingmcafeesites.com/testcat_ac.html HTTP/1.1" not in cache
-0: Requesting "GET http://www.testingmcafeesites.com/testcat_ac.html HTTP/1.1" from www.testingmcafeesites.com
-0: Received "HTTP/1.1 200 OK" from www.testingmcafeesites.com
-0: Responding "HTTP/1.1 200 OK"
-0: "GET http://www.testingmcafeesites.com/favicon.ico HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 04:16:34 2023
-0: "GET http://www.testingmcafeesites.com/favicon.ico HTTP/1.1" not in cache
-0: Requesting "GET http://www.testingmcafeesites.com/favicon.ico HTTP/1.1" from www.testingmcafeesites.com
-0: Received "HTTP/1.1 404 Not Found" from www.testingmcafeesites.com
-0: Responding "HTTP/1.1 404 Not Found"
-0: "" from 1.0.0.0 @ Mon Feb 27 04:16:35 2023
-0: Responding "HTTP/1.1 404 Not Found"
+1: "CONNECT www.gstatic.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:26:38 2023
+1: Responding "HTTP/1.1 200 OK"
+2: "CONNECT apis.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:26:38 2023
+2: Responding "HTTP/1.1 200 OK"
+3: "CONNECT adservice.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:26:38 2023
+3: Responding "HTTP/1.1 200 OK"
+4: "CONNECT googleads.g.doubleclick.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:26:38 2023
+4: Responding "HTTP/1.1 200 OK"
+5: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:26:43 2023
+5: Responding "HTTP/1.1 200 OK"
+6: "POST http://ocsp.digicert.com/ HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:26:43 2023
+6: Received "HTTP/1.1 200 OK" from ocsp.digicert.com
+6: Responding "HTTP/1.1 200 OK"
+6: "" from 1.0.0.0 @ Mon Feb 27 15:28:39 2023
+6: Responding "HTTP/1.1 404 Not Found"
 
-0: "CONNECT www.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 04:16:35 2023
-0: Responding "HTTP/1.1 200 OK"
-0: "CONNECT www.gstatic.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 04:16:35 2023
-0: Responding "HTTP/1.1 200 OK"
-0: "CONNECT apis.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 04:16:35 2023
-0: Responding "HTTP/1.1 200 OK"
-0: "CONNECT adservice.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 04:16:36 2023
-0: Responding "HTTP/1.1 200 OK"
-0: "CONNECT googleads.g.doubleclick.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 04:16:36 2023
-0: Responding "HTTP/1.1 200 OK"
-0: "" from 1.0.0.0 @ Mon Feb 27 04:16:37 2023
-0: Responding "HTTP/1.1 404 Not Found"
-
-0: "CONNECT run.mocky.io:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 04:16:40 2023
-0: "" from 1.0.0.0 @ Mon Feb 27 04:16:40 2023
-0: Responding "HTTP/1.1 404 Not Found"
-
-0: "" from 1.0.0.0 @ Mon Feb 27 04:16:40 2023
-0: Responding "HTTP/1.1 404 Not Found"
-
-0: "" from 1.0.0.0 @ Mon Feb 27 04:16:40 2023
-0: "" from 1.0.0.0 @ Mon Feb 27 04:16:40 2023
-0: Responding "HTTP/1.1 404 Not Found"
-
-0: Responding "HTTP/1.1 404 Not Found"
-
-0: "" from 1.0.0.0 @ Mon Feb 27 04:16:40 2023
-0: Responding "HTTP/1.1 404 Not Found"
-
-0: Responding "HTTP/1.1 200 OK"
-0: "CONNECT run.mocky.io:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 04:16:51 2023
-0: "" from 1.0.0.0 @ Mon Feb 27 04:16:51 2023
-0: Responding "HTTP/1.1 404 Not Found"
-
-0: Responding "HTTP/1.1 200 OK"
