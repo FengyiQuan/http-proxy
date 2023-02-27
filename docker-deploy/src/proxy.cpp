@@ -213,7 +213,7 @@ int Proxy::handleRequest(int client_fd_connection, std::string ip, size_t reques
     }
     catch (std::invalid_argument const &ex)
     {
-        if (ex.what() == std::to_string(client_fd))
+        if (ex.what() == std::to_string(client_fd_connection))
         {
             // send 400 to client
             send_data(client_fd_connection, BAD_REQUEST, BAD_REQUEST.size());

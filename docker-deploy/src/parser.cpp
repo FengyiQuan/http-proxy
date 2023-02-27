@@ -2,36 +2,36 @@
 
 void Parser::parse(std::string data, Request *request)
 {
-    // try
-    // {
-    bool type = REQUEST;
-    parseStartLine(data, request, type);
-    parseHeaders(data, request, type);
-    parseBody(data, request, type);
-    // }
-    // catch (const std::exception &e)
-    // {
-    //     std::cerr << "parse request: " << data << '\n';
-    //     std::cerr << e.what() << '\n';
-    //     return;
-    // }
+    try
+    {
+        bool type = REQUEST;
+        parseStartLine(data, request, type);
+        parseHeaders(data, request, type);
+        parseBody(data, request, type);
+    }
+    catch (const std::exception &e)
+    {
+        // std::cerr << "parse request: " << data << '\n';
+        // std::cerr << e.what() << '\n';
+        return;
+    }
 }
 
 void Parser::parse(std::string data, Response *response)
 {
-    // try
-    // {
-    bool type = RESPONSE;
-    parseStartLine(data, response, type);
-    parseHeaders(data, response, type);
-    parseBody(data, response, type);
-    // }
-    // catch (const std::exception &e)
-    // {
-    //     std::cerr << "parse response: " << data << '\n';
-    //     std::cerr << e.what() << '\n';
-    //     return;
-    // }
+    try
+    {
+        bool type = RESPONSE;
+        parseStartLine(data, response, type);
+        parseHeaders(data, response, type);
+        parseBody(data, response, type);
+    }
+    catch (const std::exception &e)
+    {
+        // std::cerr << "parse response: " << data << '\n';
+        // std::cerr << e.what() << '\n';
+        return;
+    }
 }
 
 void Parser::parseStartLine(std::string data, void *request, bool type)
