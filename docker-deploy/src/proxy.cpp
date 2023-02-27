@@ -168,6 +168,8 @@ int Proxy::handleRequest(int client_fd_connection, std::string ip, size_t reques
             int client_msg_len = recv_data(client_fd_connection, req_msg);
             if (client_msg_len <= 0)
             {
+                // print
+                // std::cout << "client_msg_len: " << client_msg_len << std::endl;
                 // close(client_fd_connection);
                 return -1;
             }
@@ -208,8 +210,8 @@ int Proxy::handleRequest(int client_fd_connection, std::string ip, size_t reques
                 send_data(client_fd_connection, v, v.size());
                 std::ostringstream requestLog;
                 requestLog << requestId << ": Responding \""
-                           << "HTTP/1.1 404 Not Found\""
-                           << std::endl;
+                           << "HTTP/1.1 404 Not Found\"";
+
                 LOG(requestLog.str());
                 delete httpClientRequest;
                 // std::vector<char> temp("HTTP/1.1 404 Not Found");
