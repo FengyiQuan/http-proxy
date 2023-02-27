@@ -165,7 +165,13 @@ int Proxy::handleRequest(int client_fd_connection, std::string ip, size_t reques
         while (true)
         {
             std::vector<char> req_msg(BUF_LEN);
-            recv_data(client_fd_connection, req_msg);
+            int client_msg_len = recv_data(client_fd_connection, req_msg);
+            if (client_msg_len <= 0)
+            {
+                // close(client_fd_connection);
+                return -1;
+            }
+
             Request *httpClientRequest = new Request(req_msg);
             // log
             std::ostringstream requestLog;
@@ -414,7 +420,8 @@ int Proxy::handleGet(Request *request, int client_fd_connection, int requestId, 
                     // send new response to client
                     send_data(client_fd_connection, server_msg, server_msg.size());
                     // update cache
-                    cache->put(requestLine, server_msg, requestId);
+
+                    cache->put(request->getURI(), server_msg, requestId);
                 }
             }
             else
@@ -502,7 +509,7 @@ int Proxy::handleGet(Request *request, int client_fd_connection, int requestId, 
                 std::ostringstream respondingLog;
                 respondingLog << requestId << ": Responding \"" << httpServerResponse->getStatusLine() << "\"";
                 LOG(respondingLog.str());
-                cache->put(requestLine, server_msg, requestId);
+                cache->put(request->getURI(), server_msg, requestId);
             }
             delete httpServerResponse;
         }

@@ -1,171 +1,284 @@
-0: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:42:28 2023
+0: "GET http://httpbin.org/forms/post HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:52:21 2023
+0: "GET http://httpbin.org/forms/post HTTP/1.1" not in cache
+0: Requesting "GET http://httpbin.org/forms/post HTTP/1.1" from httpbin.org
+0: Received "HTTP/1.1 200 OK" from httpbin.org
 0: Responding "HTTP/1.1 200 OK"
-1: "POST http://ocsp.digicert.com/ HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:42:28 2023
-1: Received "HTTP/1.1 200 OK" from ocsp.digicert.com
+0: store cache for GET http://httpbin.org/forms/post HTTP/1.1
+
+0: "POST http://httpbin.org/post HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:52:22 2023
+0: Received "HTTP/1.1 504 Gateway Time-out" from httpbin.org
+0: Responding "HTTP/1.1 504 Gateway Time-out"
+1: "CONNECT www.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:52:39 2023
 1: Responding "HTTP/1.1 200 OK"
-2: "CONNECT contile-images.services.mozilla.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:42:29 2023
-3: "CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:42:29 2023
-2: Responding "HTTP/1.1 200 OK"
-3: Responding "HTTP/1.1 200 OK"
-4: "CONNECT www.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:42:30 2023
+4: "CONNECT id.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:52:40 2023
 4: Responding "HTTP/1.1 200 OK"
-4: Tunnel closed
-4: "" from 1.0.0.0 @ Mon Feb 27 15:42:30 2023
-4: Responding "HTTP/1.1 404 Not Found"
-
-5: "CONNECT www.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:42:30 2023
-5: Responding "HTTP/1.1 200 OK"
-6: "CONNECT www.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:42:30 2023
+6: "CONNECT safebrowsing.googleapis.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:52:41 2023
+8: "CONNECT play.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:52:41 2023
 6: Responding "HTTP/1.1 200 OK"
-7: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:42:31 2023
-7: Responding "HTTP/1.1 200 OK"
-1: "POST http://ocsp.digicert.com/ HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:42:31 2023
-1: Received "HTTP/1.1 200 OK" from ocsp.digicert.com
-1: Responding "HTTP/1.1 200 OK"
-10: "CONNECT adservice.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:42:31 2023
-10: Responding "HTTP/1.1 200 OK"
-11: "CONNECT googleads.g.doubleclick.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:42:31 2023
-11: Responding "HTTP/1.1 200 OK"
-9: "" from 1.0.0.0 @ Mon Feb 27 15:42:37 2023
-9: Responding "HTTP/1.1 404 Not Found"
-
-8: "" from 1.0.0.0 @ Mon Feb 27 15:42:37 2023
-8: Responding "HTTP/1.1 404 Not Found"
-
-13: "" from 1.0.0.0 @ Mon Feb 27 15:42:43 2023
-13: Responding "HTTP/1.1 404 Not Found"
-
-12: "" from 1.0.0.0 @ Mon Feb 27 15:42:43 2023
-12: Responding "HTTP/1.1 404 Not Found"
-
-1: "" from 1.0.0.0 @ Mon Feb 27 15:42:43 2023
-1: Responding "HTTP/1.1 404 Not Found"
-
-7: Tunnel closed
+8: Responding "HTTP/1.1 200 OK"
 6: Tunnel closed
-3: Tunnel closed
-10: Tunnel closed
-2: Tunnel closed
-7: "" from 1.0.0.0 @ Mon Feb 27 15:42:43 2023
-7: Responding "HTTP/1.1 404 Not Found"
-
-11: Tunnel closed
-6: "" from 1.0.0.0 @ Mon Feb 27 15:42:43 2023
-6: Responding "HTTP/1.1 404 Not Found"
-
-3: "" from 1.0.0.0 @ Mon Feb 27 15:42:43 2023
-3: Responding "HTTP/1.1 404 Not Found"
-
-10: "" from 1.0.0.0 @ Mon Feb 27 15:42:43 2023
-10: Responding "HTTP/1.1 404 Not Found"
-
-2: "" from 1.0.0.0 @ Mon Feb 27 15:42:43 2023
-2: Responding "HTTP/1.1 404 Not Found"
-
-11: "" from 1.0.0.0 @ Mon Feb 27 15:42:43 2023
-11: Responding "HTTP/1.1 404 Not Found"
-
-5: Tunnel closed
-14: "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:42:43 2023
-0: Tunnel closed
-5: "" from 1.0.0.0 @ Mon Feb 27 15:42:43 2023
-5: Responding "HTTP/1.1 404 Not Found"
-
-0: "" from 1.0.0.0 @ Mon Feb 27 15:42:43 2023
-0: Responding "HTTP/1.1 404 Not Found"
-
-14: "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" not in cache
-14: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
-14: Received "HTTP/1.1 200 OK" from www.httpwatch.com
-14: NOTE Cache-Control: no-cache, no-store
-14: Responding "HTTP/1.1 200 OK"
-14: "" from 1.0.0.0 @ Mon Feb 27 15:44:42 2023
-14: Responding "HTTP/1.1 404 Not Found"
-
-15: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:45:55 2023
+7: "CONNECT play.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:52:42 2023
+7: Responding "HTTP/1.1 200 OK"
+3: "CONNECT www.gstatic.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:52:42 2023
+3: Responding "HTTP/1.1 200 OK"
+9: "CONNECT adservice.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:52:43 2023
+9: Responding "HTTP/1.1 200 OK"
+10: "CONNECT googleads.g.doubleclick.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:52:43 2023
+10: Responding "HTTP/1.1 200 OK"
+11: "CONNECT encrypted-tbn0.gstatic.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:53:00 2023
+12: "CONNECT encrypted-tbn0.gstatic.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:53:00 2023
+13: "CONNECT encrypted-tbn0.gstatic.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:53:00 2023
+14: "CONNECT encrypted-tbn0.gstatic.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:53:00 2023
+15: "CONNECT encrypted-tbn0.gstatic.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:53:00 2023
+13: Responding "HTTP/1.1 200 OK"
 15: Responding "HTTP/1.1 200 OK"
-16: "POST http://ocsp.digicert.com/ HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:45:55 2023
-16: Received "HTTP/1.1 200 OK" from ocsp.digicert.com
+11: Responding "HTTP/1.1 200 OK"
+12: Responding "HTTP/1.1 200 OK"
+14: Responding "HTTP/1.1 200 OK"
+16: "CONNECT encrypted-tbn0.gstatic.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:53:00 2023
 16: Responding "HTTP/1.1 200 OK"
-17: "CONNECT contile-images.services.mozilla.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:45:55 2023
-18: "CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:45:55 2023
-17: Responding "HTTP/1.1 200 OK"
-18: Responding "HTTP/1.1 200 OK"
-19: "CONNECT www.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:45:56 2023
-19: Responding "HTTP/1.1 200 OK"
-19: Tunnel closed
-19: "" from 1.0.0.0 @ Mon Feb 27 15:45:56 2023
-19: Responding "HTTP/1.1 404 Not Found"
-
-20: "CONNECT www.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:45:56 2023
-20: Responding "HTTP/1.1 200 OK"
-21: "CONNECT www.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:45:56 2023
-21: Responding "HTTP/1.1 200 OK"
-22: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:45:57 2023
-22: Responding "HTTP/1.1 200 OK"
-25: "CONNECT adservice.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:45:57 2023
-25: Responding "HTTP/1.1 200 OK"
-26: "CONNECT googleads.g.doubleclick.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:45:57 2023
-26: Responding "HTTP/1.1 200 OK"
-24: "" from 1.0.0.0 @ Mon Feb 27 15:46:02 2023
-23: "" from 1.0.0.0 @ Mon Feb 27 15:46:02 2023
-24: Responding "HTTP/1.1 404 Not Found"
-
-23: Responding "HTTP/1.1 404 Not Found"
-
-22: Tunnel closed
-26: Tunnel closed
-16: "" from 1.0.0.0 @ Mon Feb 27 15:46:05 2023
-16: Responding "HTTP/1.1 404 Not Found"
-
-20: Tunnel closed
-25: Tunnel closed
-22: "" from 1.0.0.0 @ Mon Feb 27 15:46:05 2023
-22: Responding "HTTP/1.1 404 Not Found"
-
-26: "" from 1.0.0.0 @ Mon Feb 27 15:46:05 2023
-26: Responding "HTTP/1.1 404 Not Found"
-
-20: "" from 1.0.0.0 @ Mon Feb 27 15:46:05 2023
-20: Responding "HTTP/1.1 404 Not Found"
-
-25: "" from 1.0.0.0 @ Mon Feb 27 15:46:05 2023
-25: Responding "HTTP/1.1 404 Not Found"
-
-17: Tunnel closed
-21: Tunnel closed
-18: Tunnel closed
-17: "" from 1.0.0.0 @ Mon Feb 27 15:46:05 2023
-17: Responding "HTTP/1.1 404 Not Found"
-
-21: "" from 1.0.0.0 @ Mon Feb 27 15:46:05 2023
-21: Responding "HTTP/1.1 404 Not Found"
-
+16: Tunnel closed
+11: Tunnel closed
+12: Tunnel closed
 15: Tunnel closed
-18: "" from 1.0.0.0 @ Mon Feb 27 15:46:05 2023
-18: Responding "HTTP/1.1 404 Not Found"
-
-27: "CONNECT www.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:46:05 2023
-15: "" from 1.0.0.0 @ Mon Feb 27 15:46:05 2023
-15: Responding "HTTP/1.1 404 Not Found"
-
-27: Responding "HTTP/1.1 200 OK"
-28: "CONNECT www.gstatic.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:46:06 2023
+14: Tunnel closed
+0: "GET http://httpbin.org/forms/post HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:53:03 2023
+0: "GET http://httpbin.org/forms/post HTTP/1.1" in cache, valid
+0: Responding "GET http://httpbin.org/forms/post HTTP/1.1" from cache
+17: "POST http://httpbin.org/post HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:53:36 2023
+18: "CONNECT safebrowsing.googleapis.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:53:50 2023
+18: Responding "HTTP/1.1 200 OK"
+18: Tunnel closed
+21: "CONNECT i.ytimg.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:06 2023
+22: "CONNECT i.ytimg.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:06 2023
+23: "CONNECT i.ytimg.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:06 2023
+22: Responding "HTTP/1.1 200 OK"
+21: Responding "HTTP/1.1 200 OK"
+23: Responding "HTTP/1.1 200 OK"
+24: "POST http://ocsp.pki.goog/gts1c3 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:06 2023
+25: "POST http://ocsp.pki.goog/gts1c3 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:06 2023
+26: "POST http://ocsp.pki.goog/gts1c3 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:06 2023
+25: Received "HTTP/1.1 200 OK" from ocsp.pki.goog
+26: Received "HTTP/1.1 200 OK" from ocsp.pki.goog
+26: Responding "HTTP/1.1 200 OK"
+24: Received "HTTP/1.1 200 OK" from ocsp.pki.goog
+25: Responding "HTTP/1.1 200 OK"
+24: Responding "HTTP/1.1 200 OK"
+23: Tunnel closed
+22: Tunnel closed
+28: "CONNECT www.youtube.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:07 2023
 28: Responding "HTTP/1.1 200 OK"
-29: "CONNECT apis.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:46:06 2023
+29: "CONNECT static.doubleclick.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:09 2023
 29: Responding "HTTP/1.1 200 OK"
-30: "CONNECT adservice.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:46:07 2023
+30: "CONNECT jnn-pa.googleapis.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:09 2023
+25: "POST http://ocsp.pki.goog/gts1c3 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:09 2023
 30: Responding "HTTP/1.1 200 OK"
-31: "CONNECT googleads.g.doubleclick.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:46:07 2023
+25: Received "HTTP/1.1 200 OK" from ocsp.pki.goog
+25: Responding "HTTP/1.1 200 OK"
+26: "POST http://ocsp.pki.goog/gts1c3 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:09 2023
+26: Received "HTTP/1.1 200 OK" from ocsp.pki.goog
+26: Responding "HTTP/1.1 200 OK"
+17: Received "HTTP/1.1 200 OK" from httpbin.org
+17: Responding "HTTP/1.1 200 OK"
+31: "CONNECT sqa.stackexchange.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:34 2023
 31: Responding "HTTP/1.1 200 OK"
-32: "CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:46:07 2023
+32: "CONNECT ajax.googleapis.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:35 2023
+33: "CONNECT cdn.sstatic.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:35 2023
+34: "CONNECT cdn.sstatic.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:35 2023
+35: "CONNECT cdn.sstatic.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:35 2023
+36: "CONNECT cdn.sstatic.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:35 2023
+37: "CONNECT cdn.sstatic.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:35 2023
+41: "CONNECT www.googletagmanager.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:35 2023
 32: Responding "HTTP/1.1 200 OK"
-33: "CONNECT safebrowsing.googleapis.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:48:20 2023
-33: Responding "HTTP/1.1 200 OK"
-34: "POST http://ocsp.pki.goog/gts1c3 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 15:48:20 2023
-34: Received "HTTP/1.1 200 OK" from ocsp.pki.goog
+41: Responding "HTTP/1.1 200 OK"
 34: Responding "HTTP/1.1 200 OK"
+35: Responding "HTTP/1.1 200 OK"
+36: Responding "HTTP/1.1 200 OK"
+37: Responding "HTTP/1.1 200 OK"
+33: Responding "HTTP/1.1 200 OK"
+24: "POST http://ocsp.pki.goog/gts1c3 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:35 2023
 33: Tunnel closed
-33: "" from 1.0.0.0 @ Mon Feb 27 15:48:21 2023
-33: Responding "HTTP/1.1 404 Not Found"
+37: Tunnel closed
+34: Tunnel closed
+39: "CONNECT www.gravatar.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:35 2023
+40: "CONNECT i.stack.imgur.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:35 2023
+45: "CONNECT i.stack.imgur.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:35 2023
+36: Tunnel closed
+44: "CONNECT www.gravatar.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:35 2023
+43: "CONNECT www.gravatar.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:35 2023
+42: "CONNECT www.gravatar.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:35 2023
+24: Received "HTTP/1.1 200 OK" from ocsp.pki.goog
+24: Responding "HTTP/1.1 200 OK"
+44: Responding "HTTP/1.1 200 OK"
+42: Responding "HTTP/1.1 200 OK"
+39: Responding "HTTP/1.1 200 OK"
+43: Responding "HTTP/1.1 200 OK"
+40: Responding "HTTP/1.1 200 OK"
+45: Responding "HTTP/1.1 200 OK"
+45: Tunnel closed
+42: Tunnel closed
+39: Tunnel closed
+43: Tunnel closed
+46: "CONNECT pagead2.googlesyndication.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:35 2023
+46: Responding "HTTP/1.1 200 OK"
+47: "CONNECT qa.sockets.stackexchange.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:36 2023
+47: Responding "HTTP/1.1 200 OK"
+48: "CONNECT pagead2.googlesyndication.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:36 2023
+48: Responding "HTTP/1.1 200 OK"
+49: "CONNECT www.google-analytics.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:36 2023
+49: Responding "HTTP/1.1 200 OK"
+50: "CONNECT b1c79dd2ecc1a08a5f0ffcb97b4d1bdc.safeframe.googlesyndication.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:37 2023
+50: Responding "HTTP/1.1 200 OK"
+51: "CONNECT www.googletagservices.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:37 2023
+52: "CONNECT clc.stackoverflow.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:37 2023
+52: Responding "HTTP/1.1 200 OK"
+51: Responding "HTTP/1.1 200 OK"
+53: "CONNECT tpc.googlesyndication.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:37 2023
+54: "CONNECT tpc.googlesyndication.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:37 2023
+53: Responding "HTTP/1.1 200 OK"
+54: Responding "HTTP/1.1 200 OK"
+25: "POST http://ocsp.pki.goog/gts1c3 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:37 2023
+26: "POST http://ocsp.pki.goog/gts1c3 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:37 2023
+26: Received "HTTP/1.1 200 OK" from ocsp.pki.goog
+26: Responding "HTTP/1.1 200 OK"
+25: Received "HTTP/1.1 200 OK" from ocsp.pki.goog
+25: Responding "HTTP/1.1 200 OK"
+53: Tunnel closed
+55: "CONNECT www.postman.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:43 2023
+55: Responding "HTTP/1.1 200 OK"
+24: "POST http://ocsp.digicert.com/ HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:43 2023
+24: Received "HTTP/1.1 200 OK" from ocsp.digicert.com
+24: Responding "HTTP/1.1 200 OK"
+56: "CONNECT static.cloudflareinsights.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:43 2023
+56: Responding "HTTP/1.1 200 OK"
+26: "POST http://ocsp.digicert.com/ HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:43 2023
+26: Received "HTTP/1.1 200 OK" from ocsp.digicert.com
+26: Responding "HTTP/1.1 200 OK"
+57: "CONNECT bi.pst.tech:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:44 2023
+57: Responding "HTTP/1.1 200 OK"
+25: "POST http://ocsp.sca1b.amazontrust.com/ HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:44 2023
+58: "CONNECT safebrowsing.googleapis.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:44 2023
+58: Responding "HTTP/1.1 200 OK"
+25: Received "HTTP/1.1 200 OK" from ocsp.sca1b.amazontrust.com
+25: Responding "HTTP/1.1 200 OK"
+59: "CONNECT analytics.getpostman.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:44 2023
+60: "CONNECT analytics.getpostman.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:44 2023
+61: "CONNECT app.launchdarkly.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:44 2023
+62: "CONNECT app.launchdarkly.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:44 2023
+61: Responding "HTTP/1.1 200 OK"
+62: Responding "HTTP/1.1 200 OK"
+58: Tunnel closed
+60: Responding "HTTP/1.1 200 OK"
+59: Responding "HTTP/1.1 200 OK"
+62: Tunnel closed
+24: "POST http://ocsp.sca1b.amazontrust.com/ HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+26: "POST http://ocsp.sca1b.amazontrust.com/ HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+63: "CONNECT clientstream.launchdarkly.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+24: Received "HTTP/1.1 200 OK" from ocsp.sca1b.amazontrust.com
+24: Responding "HTTP/1.1 200 OK"
+26: Received "HTTP/1.1 200 OK" from ocsp.sca1b.amazontrust.com
+26: Responding "HTTP/1.1 200 OK"
+64: "CONNECT events.launchdarkly.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+65: "CONNECT events.launchdarkly.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+66: "CONNECT events.launchdarkly.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+63: Responding "HTTP/1.1 200 OK"
+60: Tunnel closed
+65: Responding "HTTP/1.1 200 OK"
+66: Responding "HTTP/1.1 200 OK"
+64: Responding "HTTP/1.1 200 OK"
+63: Tunnel closed
+25: "POST http://ocsp.r2m01.amazontrust.com/ HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+67: "CONNECT clientstream.launchdarkly.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+68: "CONNECT events.launchdarkly.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+24: "POST http://ocsp.sca1b.amazontrust.com/ HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+26: "POST http://ocsp.sca1b.amazontrust.com/ HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+67: Responding "HTTP/1.1 200 OK"
+70: "CONNECT res.cloudinary.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+73: "CONNECT res.cloudinary.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+68: Responding "HTTP/1.1 200 OK"
+72: "CONNECT res.cloudinary.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+71: "CONNECT res.cloudinary.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+25: Received "HTTP/1.1 200 OK" from ocsp.r2m01.amazontrust.com
+25: Responding "HTTP/1.1 200 OK"
+74: "POST http://ocsp.sca1b.amazontrust.com/ HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+75: "CONNECT res.cloudinary.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+76: "CONNECT res.cloudinary.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+26: Received "HTTP/1.1 200 OK" from ocsp.sca1b.amazontrust.com
+24: Received "HTTP/1.1 200 OK" from ocsp.sca1b.amazontrust.com
+26: Responding "HTTP/1.1 200 OK"
+24: Responding "HTTP/1.1 200 OK"
+75: Responding "HTTP/1.1 200 OK"
+71: Responding "HTTP/1.1 200 OK"
+70: Responding "HTTP/1.1 200 OK"
+76: Responding "HTTP/1.1 200 OK"
+73: Responding "HTTP/1.1 200 OK"
+72: Responding "HTTP/1.1 200 OK"
+74: Received "HTTP/1.1 200 OK" from ocsp.sca1b.amazontrust.com
+74: Responding "HTTP/1.1 200 OK"
+67: Tunnel closed
+64: Tunnel closed
+66: Tunnel closed
+26: "POST http://ocsp.godaddy.com/ HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+25: "POST http://ocsp.godaddy.com/ HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+77: "CONNECT clientstream.launchdarkly.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+24: "POST http://ocsp.godaddy.com/ HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+74: "POST http://ocsp.godaddy.com/ HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+78: "POST http://ocsp.godaddy.com/ HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:45 2023
+68: Tunnel closed
+77: Responding "HTTP/1.1 200 OK"
+24: Received "HTTP/1.1 200 OK" from ocsp.godaddy.com
+26: Received "HTTP/1.1 200 OK" from ocsp.godaddy.com
+24: Responding "HTTP/1.1 200 OK"
+26: Responding "HTTP/1.1 200 OK"
+74: Received "HTTP/1.1 200 OK" from ocsp.godaddy.com
+74: Responding "HTTP/1.1 200 OK"
+78: Received "HTTP/1.1 200 OK" from ocsp.godaddy.com
+78: Responding "HTTP/1.1 200 OK"
+73: Tunnel closed
+76: Tunnel closed
+71: Tunnel closed
+75: Tunnel closed
+79: "CONNECT js-agent.newrelic.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:46 2023
+79: Responding "HTTP/1.1 200 OK"
+80: "CONNECT bam.nr-data.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:46 2023
+80: Responding "HTTP/1.1 200 OK"
+24: "POST http://ocsp.digicert.com/ HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:46 2023
+24: Received "HTTP/1.1 200 OK" from ocsp.digicert.com
+24: Responding "HTTP/1.1 200 OK"
+81: "CONNECT bam.nr-data.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:46 2023
+82: "CONNECT bam.nr-data.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:46 2023
+81: Responding "HTTP/1.1 200 OK"
+82: Responding "HTTP/1.1 200 OK"
+70: Tunnel closed
+25: Received "HTTP/1.1 200 OK" from ocsp.godaddy.com
+25: Responding "HTTP/1.1 200 OK"
+83: "CONNECT analytics.getpostman.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:48 2023
+83: Responding "HTTP/1.1 200 OK"
+84: "CONNECT bam.nr-data.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:48 2023
+85: "CONNECT bam.nr-data.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:54:48 2023
+84: Responding "HTTP/1.1 200 OK"
+85: Responding "HTTP/1.1 200 OK"
+44: Tunnel closed
+44: "" from 1.0.0.0 @ Mon Feb 27 16:55:05 2023
+44: Responding "HTTP/1.1 404 Not Found"
+
+17: "GET http://httpbin.org/forms/post HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:55:15 2023
+17: "GET http://httpbin.org/forms/post HTTP/1.1" in cache, valid
+17: Responding "GET http://httpbin.org/forms/post HTTP/1.1" from cache
+86: "POST http://httpbin.org/post HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:55:17 2023
+86: Received "HTTP/1.1 504 Gateway Time-out" from httpbin.org
+86: Responding "HTTP/1.1 504 Gateway Time-out"
+8: Tunnel closed
+3: Tunnel closed
+87: "CONNECT contile.services.mozilla.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:55:46 2023
+87: Responding "HTTP/1.1 200 OK"
+86: "GET http://httpbin.org/forms/post HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:56:13 2023
+86: "GET http://httpbin.org/forms/post HTTP/1.1" in cache, valid
+86: Responding "GET http://httpbin.org/forms/post HTTP/1.1" from cache
+88: "POST http://httpbin.org/post HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 16:56:17 2023
+88: Received "HTTP/1.1 200 OK" from httpbin.org
+88: Responding "HTTP/1.1 200 OK"
+47: Tunnel closed
+47: "" from 1.0.0.0 @ Mon Feb 27 16:56:26 2023
+47: Responding "HTTP/1.1 404 Not Found"
 

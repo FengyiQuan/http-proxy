@@ -39,10 +39,29 @@ std::vector<char> Request::getData()
     return data;
 }
 
-
 std::string Request::getStartLine()
 {
     return start_line;
+}
+
+// getURI
+std::string Request::getURI()
+{
+    std::string request_target = this->getStartLine();
+    std::string uri = "";
+    if (request_target.find("http://") != std::string::npos || request_target.find("https://") != std::string::npos)
+    {
+        uri = request_target;
+    }
+    else if (request_target.find("/") != std::string::npos && request_target.find("/") == 0)
+    {
+        uri = getHost() + request_target;
+    }
+    else
+    {
+        uri = getHost() + request_target;
+    }
+    return uri;
 }
 
 void Request::setMethod(std::string method)
@@ -74,5 +93,3 @@ void Request::setStartLine(std::string start_line)
 {
     this->start_line = start_line;
 }
-
-

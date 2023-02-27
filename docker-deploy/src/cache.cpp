@@ -27,7 +27,12 @@ void Cache::put(std::string url, Response response, int requestId)
     //     return;
     // }
     if (checkCacheControl(response, requestId))
-    {
+    { // key = host + path
+        // std::string key = response.getHost() + response.getPath();
+        // log store cache
+        std::ostringstream cacheLog;
+        cacheLog << requestId << ": store cache for " << url << std::endl;
+        LOG(cacheLog.str());
         cache_map[url] = response;
     }
 }

@@ -14,6 +14,8 @@ Response::Response(std::vector<char> response)
     delete p;
 }
 
+
+
 // isChunked
 bool Response::isChunked()
 {

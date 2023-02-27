@@ -20,6 +20,7 @@ public:
     size_t getPort();
     std::vector<char> getData();
     std::string getStartLine();
+    std::string getURI();
     // std::map<std::string, std::string> getBody();
     // setter
     void setStartLine(std::string start_line);
