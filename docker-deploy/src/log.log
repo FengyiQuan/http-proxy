@@ -1,0 +1,53 @@
+0: "GET http://www.testingmcafeesites.com/testcat_ac.html HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 03:32:40 2023
+0: "GET http://www.testingmcafeesites.com/testcat_ac.html HTTP/1.1" not in cache
+0: Requesting "GET http://www.testingmcafeesites.com/testcat_ac.html HTTP/1.1" from www.testingmcafeesites.com
+0: Received "HTTP/1.1 200 OK" from www.testingmcafeesites.com
+0: Responding "HTTP/1.1 200 OK"
+0: "GET http://www.testingmcafeesites.com/favicon.ico HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 03:32:40 2023
+0: "GET http://www.testingmcafeesites.com/favicon.ico HTTP/1.1" not in cache
+0: Requesting "GET http://www.testingmcafeesites.com/favicon.ico HTTP/1.1" from www.testingmcafeesites.com
+0: Received "HTTP/1.1 404 Not Found" from www.testingmcafeesites.com
+0: Responding "HTTP/1.1 404 Not Found"
+0: "" from 1.0.0.0 @ Mon Feb 27 03:32:45 2023
+0: Responding "HTTP/1.1 404 Not Found"
+
+0: "CONNECT www.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 03:32:45 2023
+0: Responding "HTTP/1.1 200 OK"
+0: "CONNECT www.gstatic.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 03:32:45 2023
+0: Responding "HTTP/1.1 200 OK"
+0: "CONNECT apis.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 03:32:46 2023
+0: Responding "HTTP/1.1 200 OK"
+0: "CONNECT adservice.google.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 03:32:46 2023
+0: Responding "HTTP/1.1 200 OK"
+0: "CONNECT googleads.g.doubleclick.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 03:32:47 2023
+0: Responding "HTTP/1.1 200 OK"
+0: "" from 1.0.0.0 @ Mon Feb 27 03:32:48 2023
+0: Responding "HTTP/1.1 404 Not Found"
+
+0: "" from 1.0.0.0 @ Mon Feb 27 03:32:48 2023
+0: "" from 1.0.0.0 @ Mon Feb 27 03:32:48 2023
+0: Responding "HTTP/1.1 404 Not Found"
+
+0: "" from 1.0.0.0 @ Mon Feb 27 03:32:48 2023
+0: Responding "HTTP/1.1 404 Not Found"
+
+0: "" from 1.0.0.0 @ Mon Feb 27 03:32:48 2023
+0: Responding "HTTP/1.1 404 Not Found"
+
+0: Responding "HTTP/1.1 404 Not Found"
+
+0: "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 03:32:48 2023
+0: "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" not in cache
+0: Requesting "GET http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx HTTP/1.1" from www.httpwatch.com
+0: Received "HTTP/1.1 200 OK" from www.httpwatch.com
+0: NOTE Cache-Control: no-cache, no-store
+0: Responding "HTTP/1.1 200 OK"
+0: "CONNECT contile.services.mozilla.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 03:33:25 2023
+0: "CONNECT spocs.getpocket.com:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 03:33:25 2023
+0: Responding "HTTP/1.1 200 OK"
+0: Responding "HTTP/1.1 200 OK"
+0: "CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1" from 1.0.0.0 @ Mon Feb 27 03:33:26 2023
+0: Responding "HTTP/1.1 200 OK"
+0: "" from 1.0.0.0 @ Mon Feb 27 03:34:48 2023
+0: Responding "HTTP/1.1 404 Not Found"
+

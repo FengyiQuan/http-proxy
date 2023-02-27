@@ -109,27 +109,12 @@ void send_data(int socket_fd, std::vector<char> data, size_t data_len)
         {
             std::cerr << "Error:: " << errno << std::endl;
             perror("Error: cannot send data");
-            throw std::exception();
+            throw std::invalid_argument("Error: cannot send data");
             // break;
         }
         total += n;
         bytesleft -= n;
     }
-
-    // len = total; // return number actually sent here
-
-    // return n == -1 ? -1 : 0; // return -1 on failure, 0 on success
-
-    // int recvLen = send(socket_fd, data.data(), data_len, 0);
-    // if (recvLen == -1)
-    // {
-    //     // std::cout << "Error: cannot send data" << std::endl;
-    //     std::cerr << "Error:: " << errno << std::endl;
-    //     perror("Error: cannot send data");
-    //     throw std::exception();
-    // }
-    // std::cout << "send data: " << data << std::endl;
-    // return recvLen;
 }
 
 // receive data from a socket
@@ -145,7 +130,7 @@ int recv_data(int socket_fd, std::vector<char> &req_msg)
         // std::cout << "Error: cannot receive data" << std::endl;
         std::cerr << "Error:: " << strerror(errno) << std::endl;
         perror("Error: cannot receive data");
-        throw std::exception();
+        throw std::invalid_argument(std::to_string(socket_fd));
     }
     return recvLen;
 }

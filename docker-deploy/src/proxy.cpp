@@ -191,9 +191,13 @@ int Proxy::handleRequest(int client_fd_connection, std::string ip, size_t reques
             else
             {
                 // LOG
-                std::cerr << req_msg.data() << std::endl;
-                std::cerr << "Error: unknown method: " << httpClientRequest->getStartLine() << std::endl;
+                // std::cerr << req_msg.data() << std::endl;
+                // std::cerr << "Error: unknown method: " << httpClientRequest->getStartLine() << std::endl;
                 // log 404
+                // send 404 to client
+                std::string temp("HTTP/1.1 404 Not Found\r\n\r\n");
+                std::vector<char> v(temp.begin(), temp.end());
+                send_data(client_fd_connection, v, v.size());
                 std::ostringstream requestLog;
                 requestLog << requestId << ": Responding \""
                            << "HTTP/1.1 404 Not Found\""
@@ -207,7 +211,20 @@ int Proxy::handleRequest(int client_fd_connection, std::string ip, size_t reques
             delete httpClientRequest;
         }
     }
-    catch (const std::exception &e)
+    catch (std::invalid_argument const &ex)
+    {
+        if (ex.what() == std::to_string(client_fd))
+        {
+            // send 400 to client
+            send_data(client_fd_connection, BAD_REQUEST, BAD_REQUEST.size());
+        }
+        else
+        {
+            // send 502 to client
+            send_data(client_fd_connection, BAD_GATEWAY, BAD_GATEWAY.size());
+        }
+    }
+    catch (std::exception const &e)
     {
 
         // send 400 to client
@@ -215,7 +232,7 @@ int Proxy::handleRequest(int client_fd_connection, std::string ip, size_t reques
         send_data(client_fd_connection, BAD_REQUEST, BAD_REQUEST.size());
 
         handleRequest(client_fd_connection, ip, requestId, cache);
-        std::cerr << "test: " << e.what() << '\n';
+        // std::cerr << "test: " << e.what() << '\n';
         // LOG(e.what());
     }
     // close(client_fd_connection);
