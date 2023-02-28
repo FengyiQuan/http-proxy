@@ -23,7 +23,7 @@ void Cache::put(std::string url, Response response, int requestId)
     {
         // log
         std::ostringstream cacheLog;
-        cacheLog << requestId << ": NOTE cache is full, delete previous cache" << std::endl;
+        cacheLog << requestId << ": NOTE cache is full, delete previous cache";
         LOG(cacheLog.str());
         // delete the first one
         cache_map.erase(cache_map.begin());
@@ -34,7 +34,7 @@ void Cache::put(std::string url, Response response, int requestId)
         // std::string key = response.getHost() + response.getPath();
         // log store cache
         std::ostringstream cacheLog;
-        cacheLog << requestId << ": NOTE store cache for " << url << std::endl;
+        cacheLog << requestId << ": NOTE store cache for " << url;
         LOG(cacheLog.str());
         std::lock_guard<std::mutex> lock(cacheMux);
         cache_map[url] = response;
@@ -56,7 +56,7 @@ std::vector<char> Cache::getResponse(std::string url, int requestId)
     {
         // log
         std::ostringstream cacheLog;
-        cacheLog << requestId << ": not in cache" << std::endl;
+        cacheLog << requestId << ": not in cache";
         LOG(cacheLog.str());
     }
     return response;
@@ -82,7 +82,7 @@ bool Cache::checkCacheControl(Response &response, int requestId)
     {
         // log ID: not cacheable because REASON
         std::ostringstream cacheLog;
-        cacheLog << requestId << ": not cacheable because no-store" << std::endl;
+        cacheLog << requestId << ": not cacheable because no-store";
         LOG(cacheLog.str());
 
         return false;
@@ -91,13 +91,13 @@ bool Cache::checkCacheControl(Response &response, int requestId)
     {
         // log ID: not cacheable because REASON
         std::ostringstream cacheLog;
-        cacheLog << requestId << ": cached, but requires re-validation" << std::endl;
+        cacheLog << requestId << ": cached, but requires re-validation";
         LOG(cacheLog.str());
     }
     if (cacheControl.find("max-age") != std::string::npos)
     {
         std::ostringstream cacheLog;
-        cacheLog << requestId << ": cached, expires at " << response.getExpiredTime() << std::endl;
+        cacheLog << requestId << ": cached, expires at " << response.getExpiredTime();
         LOG(cacheLog.str());
     }
 
@@ -125,7 +125,7 @@ bool Cache::needRevalidate(std::string url, int requestId)
         {
             // log ID: in cache, requires validation
             std::ostringstream cacheLog;
-            cacheLog << requestId << ": in cache, requires validation" << std::endl;
+            cacheLog << requestId << ": in cache, requires validation";
             LOG(cacheLog.str());
             return true;
         }
@@ -133,7 +133,7 @@ bool Cache::needRevalidate(std::string url, int requestId)
         {
             // log ID: in cache, but expired at EXPIREDTIME
             std::ostringstream cacheLog;
-            cacheLog << requestId << ": in cache, but expired at " << response.getExpiredTime() << std::endl;
+            cacheLog << requestId << ": in cache, but expired at " << response.getExpiredTime();
             LOG(cacheLog.str());
             return true;
         }
