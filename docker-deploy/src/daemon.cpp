@@ -118,21 +118,20 @@
 
 void create_daemon()
 {
-  // Step 1 using fork() to create a child process
-  pid_t cpid = fork(); // create children process
-  // error check for fork()
+  // Step 1：使用 fork() 创建子进程，并让父进程退出
+  pid_t cpid = fork(); // spawn children process
   if (cpid < 0)
   {
     exit(EXIT_FAILURE);
   }
   if (cpid > 0)
   {
-    exit(EXIT_SUCCESS); // have left parent process
+    exit(EXIT_SUCCESS);
   }
 
-  // Step 2 dessociate from controlling tty
-  // This will leave it's original process group, avoid
-  // sending more signals related to terminal operation to tty
+  // Step 2：脱离控制 tty
+   // 离开它原来的进程组，避免
+   // 向 tty 发送更多与终端操作相关的信号
 
   // setsid() create new ID for child process
   pid_t spid = setsid();

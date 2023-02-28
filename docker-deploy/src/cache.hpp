@@ -11,6 +11,7 @@
 #include "request.hpp"
 #include "logger.hpp"
 
+extern std::mutex cacheMux;
 class Cache
 {
 private:

@@ -1,5 +1,6 @@
 #include "cache.hpp"
 
+std::mutex cacheMux;
 Cache::Cache()
 {
     this->capacity = 50;
@@ -18,21 +19,24 @@ Cache::~Cache()
 void Cache::put(std::string url, Response response, int requestId)
 {
 
-    // if (cache_map.size() >= capacity)
-    // {
-    //     // log
-    //     std::ostringstream cacheLog;
-    //     cacheLog << "cache is full" << std::endl;
-    //     LOG(cacheLog.str());
-    //     return;
-    // }
+    if (cache_map.size() >= capacity)
+    {
+        // log
+        std::ostringstream cacheLog;
+        cacheLog << requestId << ": NOTE cache is full, delete previous cache" << std::endl;
+        LOG(cacheLog.str());
+        // delete the first one
+        cache_map.erase(cache_map.begin());
+    }
+
     if (checkCacheControl(response, requestId))
     { // key = host + path
         // std::string key = response.getHost() + response.getPath();
         // log store cache
         std::ostringstream cacheLog;
-        cacheLog << requestId << ": store cache for " << url << std::endl;
+        cacheLog << requestId << ": NOTE store cache for " << url << std::endl;
         LOG(cacheLog.str());
+        std::lock_guard<std::mutex> lock(cacheMux);
         cache_map[url] = response;
     }
 }
@@ -40,6 +44,7 @@ void Cache::put(std::string url, Response response, int requestId)
 std::vector<char> Cache::getResponse(std::string url, int requestId)
 {
     std::vector<char> response;
+    std::lock_guard<std::mutex> lock(cacheMux);
     if (cache_map.find(url) != cache_map.end())
     {
         // Response response = cache_map[url];
@@ -59,6 +64,7 @@ std::vector<char> Cache::getResponse(std::string url, int requestId)
 
 void Cache::deleteCache(std::string url)
 {
+    std::lock_guard<std::mutex> lock(cacheMux);
     if (cache_map.find(url) != cache_map.end())
     {
         cache_map.erase(url);
@@ -100,6 +106,7 @@ bool Cache::checkCacheControl(Response &response, int requestId)
 
 bool Cache::isInCache(std::string url)
 {
+    std::lock_guard<std::mutex> lock(cacheMux);
     if (cache_map.find(url) != cache_map.end())
     {
         return true;
