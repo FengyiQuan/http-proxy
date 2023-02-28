@@ -1,0 +1,38 @@
+These are the testcases for ECE568 HW2 - Caching Proxy
+------------------------------------------------------
+Testcase 1: HTTP GET Request
+http://www.testingmcafeesites.com/testcat_ac.html
+------------------------------------------------------
+
+
+------------------------------------------------------
+Testcase 2: HTTP GET Request with cache control
+http://www.testingmcafeesites.com/testcat_ed.html
+## at the first run the Log should observe 200 OK and 
+at later run cache should be stored and used and being 
+indicated
+## the client should receive 200 OK, even if the response
+is from the cache of the proxy
+------------------------------------------------------
+
+
+------------------------------------------------------
+Testcase 3: HTTP GET Request with chunked data
+http://www.httpwatch.com/httpgallery/chunked/chunkedimage.aspx
+------------------------------------------------------
+
+
+------------------------------------------------------
+Testcase 3: HTTP POST Request
+http://httpbin.org/forms/post
+------------------------------------------------------
+
+
+------------------------------------------------------
+Testcase 4: HTTP CONNECT Request
+https://www.google.com/
+## the proxy should send everything it receives back
+to the client and should not cache anything
+## the client should be able to search and open other
+tabs while running
+------------------------------------------------------
