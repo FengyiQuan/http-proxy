@@ -7,4 +7,5 @@ RUN chmod 777 /var/log/erss
 WORKDIR /proxy
 ADD . /proxy/
 # RUN cd proxy
+# EXPOSE 12345
 RUN chmod +x run.sh
