@@ -5,11 +5,12 @@
 #include <map>
 #include <stdlib.h>
 #include <iostream>
+#include <vector>
 // #include "parser.hpp"
 class Request
 {
 public:
-    Request(std::string request);
+    Request(std::vector<char> request);
 
     // getter
     std::string getMethod();
@@ -17,8 +18,9 @@ public:
     std::map<std::string, std::string> getHeaders();
     std::string getHost();
     size_t getPort();
-    std::string getData();
+    std::vector<char> getData();
     std::string getStartLine();
+    std::string getURI();
     // std::map<std::string, std::string> getBody();
     // setter
     void setStartLine(std::string start_line);
@@ -36,7 +38,7 @@ private:
     // std::string protocol;
     std::string host;
     size_t port;
-    std::string data;
+    std::vector<char> data;
     // std::string path;
     std::map<std::string, std::string> headers;
 

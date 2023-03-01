@@ -1,20 +1,37 @@
 #include "parser.hpp"
 
-
 void Parser::parse(std::string data, Request *request)
 {
-    bool type = REQUEST;
-    parseStartLine(data, request, type);
-    parseHeaders(data, request, type);
-    parseBody(data, request, type);
+    try
+    {
+        bool type = REQUEST;
+        parseStartLine(data, request, type);
+        parseHeaders(data, request, type);
+        parseBody(data, request, type);
+    }
+    catch (const std::exception &e)
+    {
+        // std::cerr << "parse request: " << data << '\n';
+        // std::cerr << e.what() << '\n';
+        return;
+    }
 }
 
 void Parser::parse(std::string data, Response *response)
 {
-    bool type = RESPONSE;
-    parseStartLine(data, response, type);
-    parseHeaders(data, response, type);
-    parseBody(data, response, type);
+    try
+    {
+        bool type = RESPONSE;
+        parseStartLine(data, response, type);
+        parseHeaders(data, response, type);
+        parseBody(data, response, type);
+    }
+    catch (const std::exception &e)
+    {
+        // std::cerr << "parse response: " << data << '\n';
+        // std::cerr << e.what() << '\n';
+        return;
+    }
 }
 
 void Parser::parseStartLine(std::string data, void *request, bool type)
@@ -24,6 +41,10 @@ void Parser::parseStartLine(std::string data, void *request, bool type)
         // request-line = method SP request-target SP HTTP-version CRLF
         Request *r = (Request *)request;
         size_t pos = data.find("\r\n");
+        // if (pos == std::string::npos)
+        // {
+        //     return;
+        // }
         r->setStartLine(data.substr(0, pos));
         std::string start_line = r->getStartLine();
         size_t firstSP = start_line.find(" ");
@@ -43,6 +64,43 @@ void Parser::parseStartLine(std::string data, void *request, bool type)
         r->setStatusCode(status_line.substr(firstSP + 1, secondSP - firstSP - 1));
     }
 }
+// void Parser::parseHeaders(std::string data, Response *response, bool type){
+//     size_t pos = data.find("\r\n");
+//     std::string header = data.substr(pos + 2);
+//     std::string line;
+//     std::map<std::string, std::string> headers;
+//     while ((pos = header.find("\r\n")) != std::string::npos)
+//     {
+//         line = header.substr(0, pos);
+//         size_t colon = line.find(":");
+//         std::string key = line.substr(0, colon);
+
+//         std::string value = line.substr(colon + 1);
+//         value.erase(0, value.find_first_not_of("\t\n\v\f\r ")); // left trim
+//         value.erase(value.find_last_not_of("\t\n\v\f\r ") + 1); // right trim
+//         if (!(key == "" && value == ""))
+//         {
+//             if (key == "Cache-Control")
+//             {
+//                 std::vector<std::string> cache_control;
+//                 size_t comma = value.find(",");
+//                 while (comma != std::string::npos)
+//                 {
+//                     cache_control.push_back(value.substr(0, comma));
+//                     value = value.substr(comma + 1);
+//                     comma = value.find(",");
+//                 }
+//                 cache_control.push_back(value);
+//                 response->setCacheControl(cache_control);
+//             }
+//             else
+//             {
+//                 headers[key] = value;
+//             }
+//         }
+//         header = header.substr(pos + 2);
+//     }
+// }
 
 // header-field   = field-name ":" OWS field-value OWS
 void Parser::parseHeaders(std::string data, void *request, bool type)
@@ -108,11 +166,8 @@ void Parser::parseHeaders(std::string data, void *request, bool type)
 void Parser::parseBody(std::string data, void *request, bool type)
 {
     // message-body = *OCTET
-    size_t pos = data.find("\r\n\r\n");
-    std::string body = data.substr(pos + 4);
+    // size_t pos = data.find("\r\n\r\n");
+    // std::string body = data.substr(pos + 4);
     // std::map<std::string, std::string> body;
     // parse into key value pari and store into body
-        
-
 }
-

@@ -5,11 +5,10 @@
 //  Created by 全峰毅 on 2/15/23.
 //
 
+#include "main.hpp"
 #include "proxy.hpp"
 
-#include <iostream>
-#include <string>
-#include <stdlib.h>
+
 
 #define PORT "12345" // proxy port
 
