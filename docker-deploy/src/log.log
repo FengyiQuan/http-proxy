@@ -1,29 +1,12 @@
-0: "GET http://httpbin.org/forms/post HTTP/1.1" from 1.0.0.0 @ Wed Mar  1 00:16:57 2023
+0: "GET http://httpbin.org/forms/post HTTP/1.1" from 0.0.0.0 @ Wed Mar  1 00:54:08 2023
 0: "GET http://httpbin.org/forms/post HTTP/1.1" not in cache
 0: Requesting "GET http://httpbin.org/forms/post HTTP/1.1" from httpbin.org
 0: Received "HTTP/1.1 200 OK" from httpbin.org
 0: Responding "HTTP/1.1 200 OK"
 0: not cacheable because no-store
-0: "GET http://httpbin.org/favicon.ico HTTP/1.1" from 1.0.0.0 @ Wed Mar  1 00:16:57 2023
-1: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 1.0.0.0 @ Wed Mar  1 00:16:57 2023
-0: "GET http://httpbin.org/favicon.ico HTTP/1.1" not in cache
-0: Requesting "GET http://httpbin.org/favicon.ico HTTP/1.1" from httpbin.org
-0: Received "HTTP/1.1 404 NOT FOUND" from httpbin.org
-0: Responding "HTTP/1.1 404 NOT FOUND"
-0: not cacheable because no-store
-1: Responding "HTTP/1.1 200 OK"
-0: "POST http://httpbin.org/post HTTP/1.1" from 1.0.0.0 @ Wed Mar  1 00:16:58 2023
+0: "POST http://httpbin.org/post HTTP/1.1" from 0.0.0.0 @ Wed Mar  1 00:54:17 2023
 0: Received "HTTP/1.1 200 OK" from httpbin.org
 0: Responding "HTTP/1.1 200 OK"
-2: "CONNECT mozilla.cloudflare-dns.com:443 HTTP/1.1" from 1.0.0.0 @ Wed Mar  1 00:17:16 2023
-2: Responding "HTTP/1.1 200 OK"
-3: "CONNECT spocs.getpocket.com:443 HTTP/1.1" from 1.0.0.0 @ Wed Mar  1 00:18:09 2023
-4: "CONNECT getpocket.cdn.mozilla.net:443 HTTP/1.1" from 1.0.0.0 @ Wed Mar  1 00:18:09 2023
-3: Responding "HTTP/1.1 200 OK"
-4: Responding "HTTP/1.1 200 OK"
-5: "CONNECT img-getpocket.cdn.mozilla.net:443 HTTP/1.1" from 1.0.0.0 @ Wed Mar  1 00:18:10 2023
-5: Responding "HTTP/1.1 200 OK"
+1: "CONNECT incoming.telemetry.mozilla.org:443 HTTP/1.1" from 0.0.0.0 @ Wed Mar  1 00:54:37 2023
+1: Responding "HTTP/1.1 200 OK"
 1: Tunnel closed
-4: Tunnel closed
-3: Tunnel closed
-5: Tunnel closed

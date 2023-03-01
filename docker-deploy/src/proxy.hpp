@@ -8,32 +8,32 @@
 #ifndef proxy_hpp
 #define proxy_hpp
 
-#include <stdio.h>
-#include <ctime>
-#include <netdb.h>
-#include <netinet/in.h>
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <cstring>
-#include <stdexcept>
-#include <sstream>
-#include <pthread.h>
-#include <stdlib.h>
+#include <arpa/inet.h>
 #include <errno.h>
 #include <fcntl.h>
-#include <unistd.h>
-#include <arpa/inet.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <sys/socket.h>
-#include <vector>
-#include <errno.h>
+#include <unistd.h>
 
+#include <cstring>
+#include <ctime>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <stdexcept>
+#include <string>
+#include <vector>
+
+#include "cache.hpp"
+#include "logger.hpp"
 #include "request.hpp"
 #include "response.hpp"
 #include "socket.hpp"
-#include "logger.hpp"
-#include "cache.hpp"
-#define BUF_LEN 65536
+#define BUF_LEN 655360
 
 // #define OK "HTTP/1.1 200 OK\r\n\r\n"
 // #define BADREQUEST "HTTP/1.1 400 Bad Request\r\n\r\n"
@@ -49,15 +49,14 @@ const std::vector<char> BAD_REQUEST(badRequest.begin(), badRequest.end());
 const std::vector<char> BAD_GATEWAY(badGateway.begin(), badGateway.end());
 const std::vector<char> NOT_IMPLEMENTED(notImplemented.begin(), notImplemented.end());
 
-class Proxy
-{
-public:
+class Proxy {
+   public:
     Proxy(size_t port);
     // Proxy(std::string port);
     ~Proxy();
     int run(void);
 
-private:
+   private:
     size_t portNum;
     // std::string portNum;
 
@@ -89,8 +88,7 @@ private:
 
     // helper to_string for not using c++ 11
     template <class T>
-    std::string my_to_string(const T &value)
-    {
+    std::string my_to_string(const T &value) {
         std::ostringstream stream;
         stream << value;
         return stream.str();
