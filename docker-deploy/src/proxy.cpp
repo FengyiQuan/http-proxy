@@ -196,7 +196,7 @@ int Proxy::handleRequest(int client_fd_connection, std::string ip, size_t reques
             }
             else if (httpClientRequest->getMethod() == "POST")
             {
-                handlePost(httpClientRequest, client_fd_connection, requestId, req_msg);
+                handlePost(httpClientRequest, client_fd_connection, requestId);
             }
             else
             {
