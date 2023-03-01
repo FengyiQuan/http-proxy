@@ -1,8 +1,8 @@
 #include "logger.hpp"
 
 std::mutex mtx;
-// std::ofstream logFile("./log.log");
-std::ofstream logFile("/var/log/erss/proxy.log");
+std::ofstream logFile("./log.log");
+// std::ofstream logFile("/var/log/erss/proxy.log");
 void LOG(std::string log)
 {
     try

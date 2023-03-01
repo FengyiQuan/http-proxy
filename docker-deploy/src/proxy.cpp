@@ -226,6 +226,8 @@ int Proxy::handleRequest(int client_fd_connection, std::string ip, size_t reques
         if (ex.what() == std::to_string(client_fd_connection))
         {
             // send 400 to client
+            // print bad request
+            std::cerr << "Error: bad request 1" << std::endl;
             send_data(client_fd_connection, BAD_REQUEST, BAD_REQUEST.size());
         }
         else
@@ -240,10 +242,12 @@ int Proxy::handleRequest(int client_fd_connection, std::string ip, size_t reques
 
         // send 400 to client
         // send bad request
+        // print bad request
+        std::cerr << "Error: bad request 2" << std::endl;
         send_data(client_fd_connection, BAD_REQUEST, BAD_REQUEST.size());
 
-        handleRequest(client_fd_connection, ip, requestId, cache);
-        // std::cerr << "test: " << e.what() << '\n';
+        // handleRequest(client_fd_connection, ip, requestId, cache);
+        std::cerr << "test: " << e.what() << '\n';
         // LOG(e.what());
     }
     // close(client_fd_connection);
@@ -378,6 +382,8 @@ int Proxy::handleConnect(Request *request, int client_fd_connection, int request
 int Proxy::handleGet(Request *request, int client_fd_connection, int requestId, Cache *cache)
 {
     // std::cout << "this is a get request" << std::endl;
+    // print request
+    std::cout << "request: " << request->getData().data() << std::endl;
     int server_fd = initSocketClient(request->getHost(), request->getPort());
     try
     {
@@ -405,6 +411,8 @@ int Proxy::handleGet(Request *request, int client_fd_connection, int requestId, 
             {
                 // send validate request
                 std::string validateRequest = cache->generateValidateRequest(requestLine, *request);
+                // print validateRequest
+                std::cout << "validateRequest: " << validateRequest << std::endl;
                 std::vector<char> temp_data(validateRequest.begin(), validateRequest.end());
                 send_data(server_fd, temp_data, temp_data.size());
                 std::vector<char> server_msg(BUF_LEN);
@@ -455,6 +463,8 @@ int Proxy::handleGet(Request *request, int client_fd_connection, int requestId, 
 
             std::vector<char> temp_data(requestData.begin(), requestData.end());
             // std::copy(requestData.begin(), requestData.end(), temp_data.begin());
+            // print temp_data
+            // std::cout << "temp_data: " << temp_data.data() << std::endl;
             send_data(server_fd, temp_data, temp_data.size());
 
             std::vector<char> server_msg(BUF_LEN);
@@ -494,19 +504,32 @@ int Proxy::handleGet(Request *request, int client_fd_connection, int requestId, 
                 { // receive and send remaining message
                     std::vector<char> chunked_msg(BUF_LEN);
                     // int len = recv(server_fd, chunked_msg.data(), BUF_LEN, 0);
-                    int len = recv_data(server_fd, chunked_msg);
-                    send_data(client_fd_connection, chunked_msg, len);
-                    std::string temp(chunked_msg.data());
-                    // if end of chunk, break
-                    if (temp.length() <= 0 || temp.find("0\r\n\r\n") != std::string::npos || temp.find("\r\n\r\n") != std::string::npos)
+                    try
                     {
-                        std::cout << "chunked break\n";
-                        break;
+
+                        int len = recv_data(server_fd, chunked_msg);
+                        send_data(client_fd_connection, chunked_msg, len);
+                        std::string temp(chunked_msg.data());
+                        // if end of chunk, break
+                        if (temp.length() <= 0 || temp.find("0\r\n\r\n") != std::string::npos || temp.find("\r\n\r\n") != std::string::npos)
+                        {
+                            std::cout << "chunked break\n";
+                            break;
+                        }
+                    }
+                    catch (const std::invalid_argument &e)
+                    {
+                        std::cerr << "error\n";
+                        std::cerr << e.what() << '\n';
+                        // close()
+                        return -1;
                     }
                 }
             }
             else
             { // not chunked
+                // print
+                // std::cout << "send: " << server_msg.data() << std::endl;
                 send_data(client_fd_connection, server_msg, recvLen);
                 std::ostringstream respondingLog;
                 respondingLog << requestId << ": Responding \"" << httpServerResponse->getStatusLine() << "\"";
@@ -521,7 +544,7 @@ int Proxy::handleGet(Request *request, int client_fd_connection, int requestId, 
     {
         // delete httpServerResponse;
         close(server_fd);
-        // std::cerr << e.what() << '\n';
+        std::cerr << e.what() << '\n';
     }
 
     close(server_fd);

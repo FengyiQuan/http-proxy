@@ -104,11 +104,16 @@ void send_data(int socket_fd, std::vector<char> data, size_t data_len)
 
     while (total < len)
     {
-        n = send(socket_fd, data.data() + total, bytesleft, 0);
+        // print data.data() + total
+        // std::cout << "data.data() + total: " << data.data() + total << std::endl;
+        // std::cout << bytesleft << data.data() + total << std::endl;
+
+        n = send(socket_fd, data.data() + total, bytesleft, MSG_NOSIGNAL);
         if (n == -1)
         {
             std::cerr << "Error:: " << errno << std::endl;
-            perror("Error: cannot send data");
+            // std::cerr << "testsetes" << std::endl;
+            // perror("Error: cannot send data");
             throw std::invalid_argument("Error: cannot send data");
             // break;
         }

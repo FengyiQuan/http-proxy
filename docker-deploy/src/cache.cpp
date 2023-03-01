@@ -78,7 +78,7 @@ bool Cache::checkCacheControl(Response &response, int requestId)
 {
     std::string cacheControl = response.getCacheControl();
     // || cache_control == "no-cache" || cache_control == "must-revalidate" || cache_control == "max-age=0"
-    if (cacheControl.find("no-store") != std::string::npos)
+    if (cacheControl.find("no-store") != std::string::npos || cacheControl == "")
     {
         // log ID: not cacheable because REASON
         std::ostringstream cacheLog;
