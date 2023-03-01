@@ -1,6 +1,0 @@
-2: "CONNECT spocs.getpocket.com:443 HTTP/1.1" from 1.0.0.0 @ Wed Mar  1 00:59:52 2023
-2: Responding "HTTP/1.1 200 OK"
-2: Tunnel closed
-1: "CONNECT contile.services.mozilla.com:443 HTTP/1.1" from 1.0.0.0 @ Wed Mar  1 01:00:06 2023
-1: Responding "HTTP/1.1 200 OK"
-1: Tunnel closed
