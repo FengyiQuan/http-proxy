@@ -129,9 +129,8 @@ int recv_data(int socket_fd, std::vector<char> &req_msg)
     // print socket_fd
     // std::cout << "socket_fd: " << socket_fd << std::endl;
     // 655360
-    ssize_t recvLen = recv(socket_fd, &req_msg.data()[0], 65536000, 0);
+    ssize_t recvLen = recv(socket_fd, &req_msg.data()[0], 1048576, 0);
     int len = recvLen;
-
 
     if (recvLen == -1)
     {
