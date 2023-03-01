@@ -192,11 +192,11 @@ int Proxy::handleRequest(int client_fd_connection, std::string ip, size_t reques
             }
             else if (httpClientRequest->getMethod() == "GET")
             {
-                handleGet(httpClientRequest, client_fd_connection, requestId, cache);
+                handleGet(httpClientRequest, client_fd_connection, requestId, cache, req_msg);
             }
             else if (httpClientRequest->getMethod() == "POST")
             {
-                handlePost(httpClientRequest, client_fd_connection, requestId);
+                handlePost(httpClientRequest, client_fd_connection, requestId, req_msg);
             }
             else
             {
@@ -379,7 +379,7 @@ int Proxy::handleConnect(Request *request, int client_fd_connection, int request
 }
 
 // handleGet from client and server
-int Proxy::handleGet(Request *request, int client_fd_connection, int requestId, Cache *cache)
+int Proxy::handleGet(Request *request, int client_fd_connection, int requestId, Cache *cache, std::vector<char> data)
 {
     // std::cout << "this is a get request" << std::endl;
     // print request
@@ -461,11 +461,12 @@ int Proxy::handleGet(Request *request, int client_fd_connection, int requestId, 
             requestingLog << requestId << ": Requesting \"" << requestLine << "\" from " << requestHost;
             LOG(requestingLog.str());
 
-            std::vector<char> temp_data(requestData.begin(), requestData.end());
+            // std::vector<char> temp_data(requestData.begin(), requestData.end());
             // std::copy(requestData.begin(), requestData.end(), temp_data.begin());
             // print temp_data
             // std::cout << "temp_data: " << temp_data.data() << std::endl;
-            send_data(server_fd, temp_data, temp_data.size());
+            // send_data(server_fd, temp_data, temp_data.size());
+            send_data(server_fd, data, data.size());
 
             std::vector<char> server_msg(BUF_LEN);
             int recvLen = recv_data(server_fd, server_msg);
