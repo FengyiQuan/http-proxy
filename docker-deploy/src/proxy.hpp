@@ -78,7 +78,7 @@ private:
     // int sendResponseClient(void);
     int handleConnect(Request *request, int client_fd_connection, int requestId);
     int handleGet(Request *request, int client_fd_connection, int requestId, Cache *cache, std::vector<char> data);
-    int handlePost(Request *request, int client_fd_connection, int requestId, std::vector<char> data);
+    int handlePost(Request *request, int client_fd_connection, int requestId);
     // bool revalidate(Request *request, int server_fd, int requestId, Cache *cache);
 
     int client_fd;
